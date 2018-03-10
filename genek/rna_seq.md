@@ -1,10 +1,40 @@
+# 无参转录组分析实操Pipeline
 
+[基因课](http://www.genek.tv/my/course/63)视频教程的笔记，整理以作自己以后参考。
+记得加上以前onenote上的工具
+博客详细内容整理为笔记
+## 准备工作
 
+安装bioconda
+
+bioconda安装Trinity
+```
+conda install trinity
+```
+
+手动安装Trinity
+```
+#下载
+wget https://github.com/trinityrnaseq/trinityrnaseq/releases
+#安装
+cd software
+tar -zxvf Trinity-v2.4.0.tar.gz
+cd trinityrnaseq-Trinity-v2.4.0
+make
+make plugins
+```
+
+数据链接到自己存原始数据的目录并解压
+```
 /raw_data
 ln -s ~/GenekTVExampleData/Transcriptome/rna_reads.small.tar.gz
 tar
+```
 
-#quality control
+
+## 数据预处理 
+
+### quality control: fastqc
 
 ```
 /QC_before_filter
@@ -13,23 +43,28 @@ fastqc options
 --nogroup 
 ```
 
-#单个测试
+原始数据的质控和批量生成脚本[原文链接](http://www.genek.tv/article/25)
 
+单个测试
 ```
 fastqc -o ./ --nogroup ../raw_data/.fastq.gz
 ```
 
-#批量任务
-
+批量任务
 ```
 ls ../raw_data/*.fastq.gz | xargs -i echo nohup fastqc -o ./ --nogroup{} \& >fastqc.sh
 ```
---------------------------------------------------
-#filter
+
+
+### filter: trimmomatic
 sample.txt 组名 重复名 read1 read2
+
 /Filter
+
 /clean_data
+
 filter.sh
+```
 trimmomatic PE ../raw_data/hcc1395_normal_rep1_r1.fastq.gz ../raw_data/hcc1395_normal_rep1_r1.fastq.gz ../clean_data/normal_rep1_forward_paired.fq.gz ../clean_data/normal_rep1_forward_unpaired.fq.gz ../clean_data/normal_rep1_reverse_paired.fq.gz ../clean_data/normal_rep1_reverse_unpaired.fq.gz ILLUMINACLIP:/home/u179970/miniconda3/share/trimmomatic-0.36-4/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:5 TRAILING:5 SLIDINGWINDOW:4:5 MINLEN:25 
 
 :%s/normal_rep1/{}/g
@@ -39,9 +74,13 @@ awk'{print $2}' ../sample.txt | args -i echo abovecode \& |less -S
 awk'{print $2}' ../sample.txt | args -i echo abovecode \& >filter.sh
 
 nohup sh filter.sh &
-每个生成四个文件 保留forward_paired.fq.gz
+#每个生成四个文件 保留forward_paired.fq.gz
+```
 
-#assembly
+## 转录本拼接
+
+### assembly: Trinity
+```
 /Assembly
 #把软件路径添加到环境变量
 vi ~/.bashrc -> add a new line -> source ./bashrc
@@ -67,9 +106,10 @@ sh run_Trinity.sh
 tail Trinity.log
 
 result Trinity.fasta
+```
 
----------------------------------------------------
-#access the results(can omit this time)
+# access the results: BUSCOß
+```
 /Assembly_Stat
 vi Assembly_Stat.sh
 home/u179970/miniconda3/opt/trinity-2.4.0/util/TrinityStats.pl ../Assembly/trity_out_dir/Trinity.fasta > Assembly_Stat.txt
@@ -89,10 +129,11 @@ busco -i longest_isoform.fasta #Trinity.fasta
 
 nohup sh run_busco.sh #run for hours,here 5300/60=90min
 #results Complete larger than 80% BUSCO access http://www.genek.tv/course/63/task/715/show
+```
 
--------------------------------------------------
-#Quantification
+## 表达定量Quantification
 #方法 基于比对bowtie2 RSEM/eXpress,不基于Kallisto Salmon
+```
 /Quantification
 run_quantification.sh
 TRINITY_HOME=/home/genektv/miniconda2/opt/trinity-2.4.0
@@ -131,9 +172,11 @@ $TRINITY_HOME/util/TrinityStats.pl  $transcripts > Assembly_Stat.txt
 $TRINITY_HOME/util/misc/contig_ExN50_statistic.pl $isoforms_TMM_EXPR_matrix $transcripts >ExN50_Stat.txt
 #filter
 #$TRINITY_HOME/util/filter_low_expr_transcripts.pl --matrix $isoforms_TMM_EXPR_matrix --transcripts $transcripts --min_expr_any 0.1 --trinity_mode >filtered.fasta
----------------------------------------------
-#Annotation
-conda install transdecoder
+```
+
+## 功能注释 Annotation
+
+```conda install transdecoder
 conda install sqlite
 conda install blast
 conda install hmmer
@@ -156,8 +199,9 @@ hmmpress Pfam-A.hmm
 
 nohup sh Build_Trinotate_db.sh &
 #wait for sometime try for some times,check the files
+```
 
------------------------------------------------
+```
 /Annotation
 /step1_run_transdecoder
 conda install diamond
@@ -190,7 +234,9 @@ TransDecoder.Predict -t $transcripts \
         --retain_blastp_hits Trinity.fasta.transdecoder_dir/longest_orfs.pep.blastp.outfmt6
 
 nohup sh run_transdecoder.sh
-------------------------------------------
+```
+
+```
 /step2_run_blast_hmmer
 vi run_blast_hmmer.sh
 transcripts=../../Assembly/trinity_out_dir/Trinity.fasta
@@ -207,7 +253,9 @@ diamond blastp --query $proteins --db $uniprot_sprot_db --threads 8 --max-target
 hmmscan --cpu 8 --domtblout TrinotatePFAM.out $Pfam $proteins > pfam.log
 
 nohup sh run_blast_hmmer.sh
----------------------------------------
+```
+
+```
 #step3
 ~/db/Trinotate
 sqlite3 .sqlite
@@ -244,7 +292,9 @@ $TRINOTATE_HOME/Trinotate Trinotate.sqlite LOAD_pfam $pfam_out
 
 # report
 $TRINOTATE_HOME/Trinotate Trinotate.sqlite report > trinotate_annotation_report.xls
-------------------------------------------------------
+```
+
+```
 /Annotation/Auto
 /software/Trinotate/auto
 pwd
@@ -270,7 +320,8 @@ perl /home/genektv/software/Trinotate-3.0.2/auto/autoTrinotate.pl \
         --CPU 4
 
 nohup sh autoTrinotate.sh & #5min
---------------------------------------------------
+```
+
 /Data_Mining
 Data_Mining.sh
 
