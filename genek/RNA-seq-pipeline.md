@@ -1,12 +1,40 @@
-# 无参转录组分析实操Pipeline
+# 无参转录组分析Pipeline
 
 [基因课](http://www.genek.tv/my/course/63)视频教程的笔记，整理以作自己以后参考。
-记得加上以前onenote上的工具
+
+注：一些数据链接可能已更改，一些命令也不完整，只是记重要流程。
+
+<!--记得加上以前onenote上的笔记
 博客详细内容整理为笔记
+闲了再更新吧-->
+<br>
+
 ## 准备工作
 
 安装bioconda
+```
+#install 
+Wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+Sh .sh 
+Source ~/.bashrc 加入环境变量 
 
+#Use 
+conda install 
+conda config --add channels bioconda 
+conda config --add channels r 
+conda search  
+conda install bwa=0.7.12卸载原版本再安装        
+conda list 
+conda update 
+conda remove 
+
+#add channel
+conda config —add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ 
+conda config —add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ 
+conda config —add channels https://nanomirrors.tuna.tsinghua.edu.cn/anaconda/cloud/bioconda/ 
+
+conda config --set show_channel_urls yes 
+```
 bioconda安装Trinity
 ```
 conda install trinity
@@ -31,6 +59,7 @@ ln -s ~/GenekTVExampleData/Transcriptome/rna_reads.small.tar.gz
 tar
 ```
 
+<br>
 
 ## 数据预处理 
 
@@ -57,7 +86,8 @@ ls ../raw_data/*.fastq.gz | xargs -i echo nohup fastqc -o ./ --nogroup{} \& >fas
 
 
 ### filter: trimmomatic
-sample.txt 组名 重复名 read1 read2
+sample.txt 组名 重复名 read1 
+read2
 
 /Filter
 
@@ -76,6 +106,8 @@ awk'{print $2}' ../sample.txt | args -i echo abovecode \& >filter.sh
 nohup sh filter.sh &
 #每个生成四个文件 保留forward_paired.fq.gz
 ```
+
+<br>
 
 ## 转录本拼接
 
@@ -108,7 +140,7 @@ tail Trinity.log
 result Trinity.fasta
 ```
 
-# access the results: BUSCOß
+### access the results: BUSCO
 ```
 /Assembly_Stat
 vi Assembly_Stat.sh
@@ -131,8 +163,11 @@ nohup sh run_busco.sh #run for hours,here 5300/60=90min
 #results Complete larger than 80% BUSCO access http://www.genek.tv/course/63/task/715/show
 ```
 
+<br>
+
 ## 表达定量Quantification
-#方法 基于比对bowtie2 RSEM/eXpress,不基于Kallisto Salmon
+
+方法 基于比对bowtie2 RSEM/eXpress,不基于Kallisto Salmon
 ```
 /Quantification
 run_quantification.sh
@@ -173,6 +208,8 @@ $TRINITY_HOME/util/misc/contig_ExN50_statistic.pl $isoforms_TMM_EXPR_matrix $tra
 #filter
 #$TRINITY_HOME/util/filter_low_expr_transcripts.pl --matrix $isoforms_TMM_EXPR_matrix --transcripts $transcripts --min_expr_any 0.1 --trinity_mode >filtered.fasta
 ```
+
+<br>
 
 ## 功能注释 Annotation
 
@@ -322,6 +359,11 @@ perl /home/genektv/software/Trinotate-3.0.2/auto/autoTrinotate.pl \
 nohup sh autoTrinotate.sh & #5min
 ```
 
+<br>
+
+## 数据挖掘 
+
+```
 /Data_Mining
 Data_Mining.sh
 
@@ -333,7 +375,14 @@ $PtR --matrix $genes_TMM_EXPR_matrix --samples $samples_file --compare_replicate
 $PtR --matrix $genes_TMM_EXPR_matrix --samples $samples_file --sample_cor_matrix
 $PtR --matrix $genes_TMM_EXPR_matrix --samples $samples_file --indiv_gene_cor TRINITY_DN8111_c0_g1 --top_cor_gene_count 10 --min_rowSums 3 --gene_factors gene_factor.txt
 #STEP BY STEP
-----------------------------------------------------
+
+```
+
+<br>
+
+## 差异表达分析
+
+```
 /DE_analysis
 conda install bioconductor-deseq2
 R #进入命令模式
@@ -360,6 +409,13 @@ perl $TRINITY_HOME/Analysis/DifferentialExpression/run_DE_analysis.pl \
 ------------------------------
 awk '($4>1 || $4<-1) && $7<0.05 && NR>1{print $1}' isoforms.counts.matrix.normal_vs_tumor.edgeR.DE_results >isoforms.counts.matrix.normal_vs_tumor.edgeR.DE.lst
 --------------------------------------
+```
+
+<br>
+
+## 富集分析
+
+```
 /GO #数据偏向性
 conda install bioconductor-qvalue
 vi run_GOSeq
@@ -409,3 +465,4 @@ perl ${TRINITY_HOME}/Analysis/DifferentialExpression/run_GOseq.pl \
 #enrich depleted excel
 
 ggplot,excel show imgs
+```
