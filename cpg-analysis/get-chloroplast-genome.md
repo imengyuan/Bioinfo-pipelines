@@ -207,6 +207,8 @@ cat $best_ref.fasta | bcftools consensus $best_ref.vcf.gz | sed '1d' >> $best_re
 
 ### 8. SOAPdenovo生成contig，找到N50最大的一个(找到最好的K)
 
+SOAPdenovo是一个可以组装短reads的方法,能构建人类大小基因组的从头组装草图。
+
 ```shell
 #建立config.txt
 echo "max_rd_len=500" > config.txt
