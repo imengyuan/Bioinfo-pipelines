@@ -1,10 +1,15 @@
 # 使用总DNA建库获取叶绿体基因组
 
-直接用的老师写的脚本...
+用的老师写的脚本。
 
 ## 最终结果的文件结构
 
+只显示了两级结构。K文件夹里是组装时使用每一个K值组装成的contig文件，logs文件夹里每个步骤生成的日志文件（如果有日志文件的话）。
+
+作为输入的文件有：script.sh为整个流程的脚本文件，fasta文件为参考序列，clean.fq.gz为测序得到的原始数据。
+
 ```
+├── script.sh
 ├── KT781591.fasta
 ├── KT963036.fasta
 ├── KT963037.fasta
@@ -35,26 +40,9 @@
 
 <br>
 
-## 原始文件的结构为
 
-```
-├── script.sh
-├── KT781591.fasta
-├── KT963036.fasta
-├── KT963037.fasta
-├── KT963038.fasta
-├── KX118044.fasta
-├── MF594405.fasta
-├── NC_029391.fasta
-├── NC_029392.fasta
-├── NC_029393.fasta
-├── SQ_H3K5YDMXX_L1_1.clean.fq.gz
-└── SQ_H3K5YDMXX_L1_2.clean.fq.gz
-```
 
-script为使用总DNA建库获取叶绿体基因组流程的脚本；.fasta文件为伞形科其他几种植物的叶绿体基因组参考序列；.clean.fq.gz为测序得到的原始数据。
 
-将整个文件夹拖到终端执行，一晚上差不多就跑完了。
 
 <br>
 
