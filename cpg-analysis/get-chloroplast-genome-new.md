@@ -1,6 +1,33 @@
 # Get chloroplast genome from whole genome
 
-运行脚本step1-4.sh
+<br>
+
+## 新旧脚本的区别
+
+<br>
+
+## 程序补洞与一代测序补洞的区别
+
+<br>
+
+## 一些重要的原理和概念
+
+为什么要设定线程值呢？
+
+程序需要还是为了提高运行速度啊？要根据自己电脑配置重新设置么？
+
+组装的K值的含义
+
+基因组组装的算法原理
+
+叶绿体基因组的结构
+
+
+
+<br>
+
+
+## 运行step1-4.sh
 
 ```shell
 #!/bin/sh
@@ -94,12 +121,17 @@ bowtie2 -x cp.index.combine -q -1 $file1 -2 $file2 -S combine.out.sam -p $thread
 
 echo FINISHED at $(date)
 echo now move onto step 5
-#
 ```
 
+<br>
 
 屏幕输出
+```
 
+```
+<br>
+
+屏幕输出
 ```
 yuanmengdeMacBook-Pro:test yuanmeng$ sh step1-4.sh
 ==========================================
@@ -138,6 +170,7 @@ yuanmengdeMacBook-Pro:test yuanmeng$
 
 ```
 
+<br>
 
 结果文件结构
 ```shell
@@ -217,7 +250,7 @@ yuanmengdeMacBook-Pro:test yuanmeng$
 
 <br>
 
-## step5
+## 运行step5.sh
 
 ```
 #5.使用samtools和bedtools进行排序和筛选(-@为线程数)
@@ -234,6 +267,9 @@ bedtools bamtofastq -i combine.mapped.sort.bam -fq combine.mapped_1.fq -fq2 comb
 echo FINISH at $(date)
 echo now may move onto step 6
 ```
+
+<br>
+
 出现了问题
 ```
 yuanmengdeMacBook-Pro:test yuanmeng$ sh step5.sh
@@ -244,8 +280,10 @@ samtools sort: truncated file. Aborting
 FINISH at 2018年 3月14日 星期三 15时30分38秒 CST
 now may move onto step 6
 ```
-把上一步重新跑了一次，就又没问题了..
 
+<br>
+
+把上一步重新跑了一次，就又没问题了..
 ```
 yuanmengdeMacBook-Pro:test2 yuanmeng$ sh step5.sh
 START at 2018年 3月14日 星期三 16时48分34秒 CST
@@ -255,15 +293,16 @@ FINISH at 2018年 3月14日 星期三 16时52分11秒 CST
 now may move onto step 6
 ```
 
-日志文件no2side.log tail了一下，貌似全是这种提示，不知道是啥意思
+<br>
 
+日志文件no2side.log tail了一下，貌似全是这种提示，不知道是啥意思
 ```
 *****WARNING: Query ST-E00600:68:H3K5YALXX:2:2488:32606:20196 is marked as paired, but its mate does not occur next to it in your BAM file.  Skipping.
 *****WARNING: Query ST-E00600:68:H3K5YALXX:2:2488:32696:13307 is marked as paired, but its mate does not occur next to it in your BAM file.  Skipping.
 *****WARNING: Query ST-E00600:68:H3K5YALXX:2:2488:32859:32722 is marked as paired, but its mate does not occur next to it in your BAM file.  Skipping.
 ```
 
-## step67
+## 运行step67.sh
 
 ```shell
 #6.对所有参考序列依次进行map
@@ -284,6 +323,9 @@ echo FINISH at $(date)
 echo now may move onto step 8
 ```
 
+<br>
+
+屏幕输出
 ```
 yuanmengdeMacBook-Pro:test2 yuanmeng$ sh step67.sh
 START at 2018年 3月14日 星期三 18时48分25秒 CST
@@ -303,7 +345,11 @@ now may move onto step 8
 ```
 后面几个的比对率很接近，会不会每次跑best reference都不一样啊
 
-我的天呐soapdenovo太难装了
+
+<br>
+
+## 运行step8.sh
+mac上安装SOAPdenovo最好用brew install Soapdenovo，因为最新版本的SOAPdenovo没有在macOS上编译过 [github issue](https://github.com/aquaskyline/SOAPdenovo2/issues/1)，自己下源码编译会报错。另外，下载已经编译好的文件也有问题，并且用brew安装提示没有这个软件...所以找到homebrew GitHub上的[Soapdenovo.rb](https://github.com/Homebrew/homebrew-science/blob/4f15424685012902a94f1a6e2eab0dc6103a2efd/soapdenovo.rb)保存下来，运行brew install Soapdenovo.rb就安装成功了。
 
 ```
 #!/bin/sh
@@ -341,3 +387,221 @@ cat -b best_k1.info
 echo FINISH at $(date)
 echo now may move onto step 9
 ```
+
+<br>
+
+估计会跑很久，每一个K值都有以下后缀的文件生成，k从13到127...emmm我还能吃晚饭么
+```
+K15.Arc     K15.links   K15.scaf
+K15.ContigIndex   K15.markOnEdge    K15.scafSeq
+K15.bubbleInScaff K15.newContigIndex  K15.scafStatistics
+K15.contig    K15.peGrads   K15.scaf_gap
+K15.contigPosInscaff  K15.preArc    K15.updated.edge
+K15.edge.gz   K15.preGraphBasic K15.vertex
+K15.gapSeq    K15.readInGap.gz
+K15.kmerFreq    K15.readOnContig.gz
+```
+
+屏幕输出。加起来运行了有约三个半小时
+
+```
+Step 8: Assemble reads with K from 115 to 127.
+     1  K51 N50 103 686
+     2  K53 N50 107 592
+     3  K55 N50 111 558
+     4  K57 N50 115 504
+     5  K59 N50 119 429
+     6  K61 N50 123 358
+     7  K63 N50 127 278
+     8  K65 N50 131 234
+     9  K67 N50 161 42
+    10  K69 N50 344 24
+    11  K71 N50 1167 19
+    12  K13 N50 1295 3
+    13  K73 N50 1637 15
+    14  K77 N50 1637 15
+    15  K75 N50 1640 14
+    16  K79 N50 2401 13
+    17  K81 N50 2516 12
+    18  K83 N50 2847 12
+    19  K19 N50 2954 10
+    20  K17 N50 3524 8
+    21  K85 N50 3593 10
+    22  K87 N50 3686 11
+    23  K101 N50 3703 11
+    24  K15 N50 3712 8
+    25  K103 N50 3749 12
+    26  K105 N50 3867 11
+    27  K21 N50 3892 8
+    28  K35 N50 4153 7
+    29  K43 N50 4171 10
+    30  K29 N50 4207 8
+    31  K25 N50 4346 7
+    32  K91 N50 4416 9
+    33  K93 N50 4511 9
+    34  K45 N50 4583 8
+    35  K95 N50 5030 8
+    36  K97 N50 5065 8
+    37  K99 N50 5066 8
+    38  K107 N50 5069 10
+    39  K89 N50 5096 8
+    40  K23 N50 5269 7
+    41  K37 N50 5502 6
+    42  K33 N50 5589 5
+    43  K27 N50 5645 7
+    44  K41 N50 5658 7
+    45  K31 N50 6116 6
+    46  K109 N50 6165 8
+    47  K39 N50 7051 6
+    48  K113 N50 8233 7
+    49  K115 N50 8341 7
+    50  K47 N50 8786 5
+    51  K111 N50 8885 7
+    52  K117 N50 9087 6
+    53  K49 N50 9248 5
+    54  K125 N50 9859 5
+    55  K123 N50 9868 6
+    56  K119 N50 9875 6
+    57  K121 N50 9876 6
+    58  K127 N50 12740 4
+FINISH at 2018年 3月15日 星期四 19时50分03秒 CST
+now may move onto step 9
+```
+
+## 运行step9.sh
+
+```
+#!/bin/sh
+#每一个k值对应一个.contig文件
+best_ref=$(tail -n 1 best_ref.info|awk -F' ' '{print $1}')
+threads=16
+echo START at $(date)
+#9.依次map所有的contig到最好的参考序列
+echo Step 9: Map each contig to reference to find the best K value.
+for s in $(ls *.contig); \
+do bowtie2 -x $best_ref.index -f $s -S ${s%.*}.out.sam -p $threads > ${s%.*}.Kstat 2>&1; \
+done
+#查看overall alignment rate
+for s in $(ls *.Kstat); \
+do var=$(cat $s| grep "overall alignment rate"); echo "${s%.*} $var";done | sort -t ' ' -nk 2 > best_k2.info
+cat -b best_k2.info
+
+#根据8和9的结果设定best_k
+best_k1_weight=(`cat best_k1.info | sed $'s/ /\t/g'| cat -b|sed $'s/ //g'|sort -t$'\t' -k 2|awk -F'\t' '{print $1}'`)
+best_k1_id=(`cat best_k1.info | sed $'s/ /\t/g'| cat -b|sed $'s/ //g'|sort -t$'\t' -k 2|awk -F'\t' '{print $2}'`)
+best_k2_weight=(`cat best_k2.info | sed $'s/ /\t/g'| cat -b|sed $'s/ //g'|sort -t$'\t' -k 2|awk -F'\t' '{print $1}'`)
+for s in `seq 0 $[${#best_k1_weight[@]}-1]`;
+do
+echo ${best_k1_id[$s]} $[${best_k1_weight[$s]}] $[${best_k2_weight[$s]}] $[${best_k1_weight[$s]}+${best_k2_weight[$s]}];
+done |sort -t$' ' -nk 4 >best_k.info
+best_k=$(tail -n 1 best_k.info|awk -F' ' '{print $1}')
+echo "The best K is: "$best_k
+
+echo FINISH at $(date)
+echo now may move onto step 10
+```
+
+屏幕输出。第9步运行地很快。
+
+```
+yuanmengdeMacBook-Pro:test2 yuanmeng$ sh step9.sh
+START at 2018年 3月15日 星期四 20时02分58秒 CST
+Step 9: Map each contig to reference to find the best K value.
+     1  K21 76.76% overall alignment rate
+     2  K19 77.84% overall alignment rate
+     3  K17 79.10% overall alignment rate
+     4  K15 80.46% overall alignment rate
+     5  K27 81.89% overall alignment rate
+     6  K13 83.42% overall alignment rate
+     7  K23 86.42% overall alignment rate
+     8  K25 86.76% overall alignment rate
+     9  K29 87.83% overall alignment rate
+    10  K31 88.28% overall alignment rate
+    11  K33 89.57% overall alignment rate
+    12  K35 90.31% overall alignment rate
+    13  K37 91.35% overall alignment rate
+    14  K39 91.83% overall alignment rate
+    15  K41 92.12% overall alignment rate
+    16  K43 92.64% overall alignment rate
+    17  K45 94.30% overall alignment rate
+    18  K47 94.79% overall alignment rate
+    19  K49 94.98% overall alignment rate
+    20  K97 95.16% overall alignment rate
+    21  K95 95.25% overall alignment rate
+    22  K91 95.48% overall alignment rate
+    23  K99 95.62% overall alignment rate
+    24  K51 95.68% overall alignment rate
+    25  K85 95.73% overall alignment rate
+    26  K83 95.74% overall alignment rate
+    27  K121 95.75% overall alignment rate
+    28  K89 95.82% overall alignment rate
+    29  K87 95.86% overall alignment rate
+    30  K93 95.88% overall alignment rate
+    31  K81 96.27% overall alignment rate
+    32  K117 96.28% overall alignment rate
+    33  K119 96.28% overall alignment rate
+    34  K53 96.28% overall alignment rate
+    35  K79 96.35% overall alignment rate
+    36  K123 96.43% overall alignment rate
+    37  K55 96.43% overall alignment rate
+    38  K77 96.45% overall alignment rate
+    39  K115 96.47% overall alignment rate
+    40  K73 96.49% overall alignment rate
+    41  K67 96.51% overall alignment rate
+    42  K113 96.62% overall alignment rate
+    43  K69 96.62% overall alignment rate
+    44  K75 96.65% overall alignment rate
+    45  K57 96.81% overall alignment rate
+    46  K71 96.85% overall alignment rate
+    47  K107 96.88% overall alignment rate
+    48  K59 96.93% overall alignment rate
+    49  K61 96.94% overall alignment rate
+    50  K105 96.97% overall alignment rate
+    51  K63 96.99% overall alignment rate
+    52  K111 97.00% overall alignment rate
+    53  K65 97.01% overall alignment rate
+    54  K109 97.08% overall alignment rate
+    55  K125 97.08% overall alignment rate
+    56  K101 97.11% overall alignment rate
+    57  K103 97.11% overall alignment rate
+    58  K127 99.30% overall alignment rate
+The best K is: K127
+FINISH at 2018年 3月15日 星期四 20时03分35秒 CST
+now may move onto step 10
+```
+
+## 运行step10.sh
+```
+#!/bin/sh
+best_ref=$(tail -n 1 best_ref.info|awk -F' ' '{print $1}')
+threads=16
+echo START at $(date)
+
+#10.删除特别差的contig，合并剩下的contig，过滤太短的contig
+echo Step 10: Combine the contig and map them to the best reference to generate a consensus sequence.
+cat *.contig > contig.all
+
+var=$(cat $best_ref.fasta| sed '1d')
+echo ">$best_ref" >${best_ref%.*}.split.fasta
+echo ${var:0-10000}$var${var:0:10000}>>${best_ref%.*}.split.fasta
+
+bowtie2-build $best_ref.split.fasta $best_ref.split.index >>index.log 2>&1
+tools_fasta.pl -in contig.all -out contig.fas -cut 150 -function length
+
+bowtie2 -x $best_ref.split.index -f contig.fas -S $best_ref.all.out.sam -p 4 --very-fast --end-to-end > $best_ref.all.allstat 2>&1
+samtools view -F 4 -b -@ $threads $best_ref.all.out.sam |samtools sort > $best_ref.all.bam
+samtools mpileup -uf $best_ref.split.fasta $best_ref.all.bam | bcftools call -mv -Oz -o $best_ref.all.vcf.gz >>index.log 2>&1
+tabix $best_ref.all.vcf.gz
+echo ">$best_ref" >$best_ref.all.cns.fas
+cat $best_ref.split.fasta | bcftools consensus $best_ref.all.vcf.gz | sed '1d' >> $best_ref.all.cns.fas
+
+echo FINISH at $(date)
+echo now may move onto step 11
+```
+
+没有找到这里面的tools_fasta.pl这个文件...打算先看看原理，接着整理笔记，明天这步搞不定就问问老师。（分析一下这个脚本的作用）
+
+
+
+
+
