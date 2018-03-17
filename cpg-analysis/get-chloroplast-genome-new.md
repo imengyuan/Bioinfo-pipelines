@@ -2,7 +2,7 @@
 
 <br>
 
-## 运行step1-4.sh
+## Step1-4
 
 ```shell
 #!/bin/sh
@@ -98,12 +98,7 @@ echo FINISHED at $(date)
 echo now move onto step 5
 ```
 
-<br>
 
-屏幕输出
-```
-
-```
 <br>
 
 屏幕输出
@@ -147,7 +142,7 @@ yuanmengdeMacBook-Pro:test yuanmeng$
 
 <br>
 
-结果文件结构
+结果的文件结构
 ```shell
 .
 ├── KT781591.fasta
@@ -225,7 +220,7 @@ yuanmengdeMacBook-Pro:test yuanmeng$
 
 <br>
 
-## 运行step5.sh
+## Step5
 
 ```
 #5.使用samtools和bedtools进行排序和筛选(-@为线程数)
@@ -258,7 +253,7 @@ now may move onto step 6
 
 <br>
 
-把上一步重新跑了一次，就又没问题了..
+应该是sam文件有问题，把上一步重新跑了一次，就又没问题了..
 ```
 yuanmengdeMacBook-Pro:test2 yuanmeng$ sh step5.sh
 START at 2018年 3月14日 星期三 16时48分34秒 CST
@@ -277,7 +272,9 @@ now may move onto step 6
 *****WARNING: Query ST-E00600:68:H3K5YALXX:2:2488:32859:32722 is marked as paired, but its mate does not occur next to it in your BAM file.  Skipping.
 ```
 
-## 运行step67.sh
+<br>
+
+## Step67
 
 ```shell
 #6.对所有参考序列依次进行map
@@ -318,13 +315,14 @@ The best reference is: KT963036
 FINISH at 2018年 3月14日 星期三 19时15分03秒 CST
 now may move onto step 8
 ```
-后面几个的比对率很接近，会不会每次跑best reference都不一样啊
+最后几条参考序列的比对率很接近，差异小可能每次跑的最佳参考序列都不一样。
 
 
 <br>
 
-## 运行step8.sh
-mac上安装SOAPdenovo最好用brew install Soapdenovo，因为最新版本的SOAPdenovo没有在macOS上编译过 [github issue](https://github.com/aquaskyline/SOAPdenovo2/issues/1)，自己下源码编译会报错。另外，下载已经编译好的文件也有问题，并且用brew安装提示没有这个软件...所以找到homebrew GitHub上的[Soapdenovo.rb](https://github.com/Homebrew/homebrew-science/blob/4f15424685012902a94f1a6e2eab0dc6103a2efd/soapdenovo.rb)保存下来，运行brew install Soapdenovo.rb就安装成功了。
+## Step8
+
+mac上安装SOAPdenovo最好用brew install Soapdenovo，因为最新版本的SOAPdenovo没有在macOS上编译通过 （[github issue](https://github.com/aquaskyline/SOAPdenovo2/issues/1)），自己下源码编译会报错。另外，下载已经编译好的文件也有问题，并且用brew安装提示没有这个软件...所以找到homebrew GitHub上的[Soapdenovo.rb](https://github.com/Homebrew/homebrew-science/blob/4f15424685012902a94f1a6e2eab0dc6103a2efd/soapdenovo.rb)保存下来，运行brew install Soapdenovo.rb就安装成功了。
 
 ```
 #!/bin/sh
@@ -365,7 +363,7 @@ echo now may move onto step 9
 
 <br>
 
-估计会跑很久，每一个K值都有以下后缀的文件生成，k从13到127...emmm我还能吃晚饭么
+估计会跑很久，每一个K值都有以下后缀的文件生成，k从13到127
 ```
 K15.Arc     K15.links   K15.scaf
 K15.ContigIndex   K15.markOnEdge    K15.scafSeq
@@ -442,8 +440,11 @@ Step 8: Assemble reads with K from 115 to 127.
 FINISH at 2018年 3月15日 星期四 19时50分03秒 CST
 now may move onto step 9
 ```
+这里可以看到K为127时，N50为12740为最大。
 
-## 运行step9.sh
+<br>
+
+## Step9
 
 ```
 #!/bin/sh
@@ -477,7 +478,6 @@ echo now may move onto step 10
 ```
 
 屏幕输出。第9步运行地很快。
-
 ```
 yuanmengdeMacBook-Pro:test2 yuanmeng$ sh step9.sh
 START at 2018年 3月15日 星期四 20时02分58秒 CST
@@ -544,11 +544,14 @@ The best K is: K127
 FINISH at 2018年 3月15日 星期四 20时03分35秒 CST
 now may move onto step 10
 ```
+这里看到K127对应的overall alignment rate也最高。
 
-## 运行step10.sh
+<br>
+
+## Step10
 ```
 #!/bin/sh
-best_ref=$(tail -n 1 best_ref.info|awk -F' ' '{print $1}')
+best_ref=$(clear)
 threads=16
 echo START at $(date)
 
@@ -561,6 +564,10 @@ echo ">$best_ref" >${best_ref%.*}.split.fasta
 echo ${var:0-10000}$var${var:0:10000}>>${best_ref%.*}.split.fasta
 
 bowtie2-build $best_ref.split.fasta $best_ref.split.index >>index.log 2>&1
+
+```
+
+```
 tools_fasta.pl -in contig.all -out contig.fas -cut 150 -function length
 
 bowtie2 -x $best_ref.split.index -f contig.fas -S $best_ref.all.out.sam -p 4 --very-fast --end-to-end > $best_ref.all.allstat 2>&1
@@ -574,7 +581,7 @@ echo FINISH at $(date)
 echo now may move onto step 11
 ```
 
-没有找到这里面的tools_fasta.pl这个文件...打算先看看原理，接着整理笔记，明天这步搞不定就问问老师。（分析一下这个脚本的作用）
+
 
 
 

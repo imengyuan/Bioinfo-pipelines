@@ -149,7 +149,7 @@ bedtools bamtofastq -i combine.mapped.sort.bam -fq combine.mapped_1.fq -fq2 comb
 
 ### 6. 对每条参考序列依次进行map
 
-shell使用参数扩展字截取符串，${s%.\*.\*.\*} 把name.index.1.bt2里的name提取出来，这个文件来源于第三步每个用参考序列建立的索引文件。
+${s%.\*.\*.\*} 把name.index.1.bt2里的name提取出来，这个文件来源于第三步每个用参考序列建立的索引文件。
 
 ```shell
 for s in $(ls *.index.1.bt2); do bowtie2 -x ${s%.*.*} -q -1 combine.mapped_1.fq -2 combine.mapped_2.fq -S ${s%.*.*.*}.out.sam -p $threads > ${s%.*.*.*}.Refstat 2>&1; done
@@ -195,8 +195,12 @@ cat $best_ref.fasta | bcftools consensus $best_ref.vcf.gz | sed '1d' >> $best_re
 
 ### 8. SOAPdenovo生成contig，找到N50最大的一个(找到最好的K)
 
-SOAPdenovo是一个可以组装短reads的方法,能构建人类大小基因组的从头组装草图。
+SOAPdenovo是一个可以组装短reads的基因组组装软件。
+先是设置配置文件，这篇[博客](http://www.cnblogs.com/leezx/p/5606373.html)有详细介绍
 
+SOAPdenovo all(pregraph-contig-map-scaff)的参数，-s 配置文件，-o 输出图文件的前缀，-K Kmer大小，-d Kmer频率比这个值小的会被删除，-R resolve repeats by reads
+
+查看N50，列出每个K值对应的K.scafStatistics文件前50行，提取出N50值并排序。grep输出有N50信息的行，sed将格式改为以空格隔开（s命令替换，g标记全面替换），sort按N50值排序。
 ```shell
 #建立config.txt
 echo "max_rd_len=500" > config.txt
@@ -219,6 +223,7 @@ cat -b best_k1.info
 <br>
 
 ### 9. map所有的contig到最好的参考序列
+
 
 ```shell
 for s in $(ls *.contig); \

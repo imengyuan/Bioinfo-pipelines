@@ -45,7 +45,64 @@ Kmer即长度为k的核苷酸序列，用于构建de Brujin图。使用SOAPdenov
 <br>
 
 ## 新旧脚本的区别
-新的脚本在序列两端添加了一段序列，环形区域重合时更为准确。另外新的脚本只有10个步骤，得到的结果还需一代测序补洞。旧的脚本后面不补洞的流程保留，接着运行tablet等程序补洞。旧的脚本写了每一步命令的解释，新的脚本写了每一步运行的输出等，可以先看旧的再看新的。
+* 新的脚本在序列两端添加了一段序列，环形区域重合时更为准确。
+* 新的脚本只有10个步骤，得到的结果还需一代测序补洞。旧的脚本后面不补洞的流程保留，接着运行tablet等程序补洞。
+* 新脚本省略的生成备用consensus序列的步骤
+
+<br>
+
+2.把所有获得的叶绿体序列每个单独导出到Lab文件夹(Geneious: File->Export->Batch Exports)，并合并成cp.combine
+
+旧脚本
+```shell
+#Step 2
+cat *.fasta>cp.combine
+
+```
+
+
+新脚本
+
+每一条参考序列在合并之前都在前后各加了长10000的序列
+```shell
+#Step 2
+for s in $(ls *.fasta); 
+do var=$(cat $s| sed '1d');
+echo ">${s%.*}.split" >${s%.*}.split;
+echo ${var:0-10000}$var${var:0:10000}>>${s%.*}.split; 
+done
+cat *.split>cp.combine
+rm *.split
+```
+
+<br>
+
+10.删除特别差的contig，合并剩下的contig，过滤太短的contig
+
+旧脚本
+```shell
+#Step 10
+cat *.contig > contig.all
+#bowtie2使用之前建好的参考序列的索引文件，继续后面的分析
+bowtie2 -x $best_ref.index -f contig.all -S $best_ref.all.out.sam -p $threads > $best_ref.all.allstat 2>&1
+```
+
+
+新脚本
+
+每次bowtie比对之前都在每个参考序列前后加一段序列
+```shell
+#Step 10
+cat *.contig > contig.all
+
+#删掉best_ref.fasta的第一行，换成新的，往后面加序列
+var=$(cat $best_ref.fasta| sed '1d')
+echo ">$best_ref" >${best_ref%.*}.split.fasta
+echo ${var:0-10000}$var${var:0:10000}>>${best_ref%.*}.split.fasta
+#bowtie2重新建索引文件，继续后面的分析
+bowtie2-build $best_ref.split.fasta $best_ref.split.index >>index.log 2>&1
+tools_fasta.pl -in contig.all -out contig.fas -cut 150 -function length
+```
 
 <br>
 
@@ -53,6 +110,28 @@ Kmer即长度为k的核苷酸序列，用于构建de Brujin图。使用SOAPdenov
 虽然可以用程序补洞，然后再手工修改...但新手很不好把握怎么改，而且改的地方也挺多的也比较费时，结果也不准确。所以这里采用新的脚本获得叶绿体基因组后，设计引物，一代测序补洞，使结果更准确。
 <br>
 
+## tools_fasta perl脚本
+使用了perl连接prostgres数据库，有多个功能，通过传参数-fuction进行对应的处理。
+
+* 从数据库获取fasta
+* 从NCBI获取fasta文件
+* 去除SCG和基因序列
+* 获取目标fasta文件中包含查找字段的行
+* 转换成nex格式
+* 获取目标fasta文件每条序列的长度,去除蛋白质中的*,-,?
+* 格式化fasta文件为SCG
+* 缩减fasta文件
+* 分割fasta文件
+* -num 每个文件中的序列数
+
+这里在最后一步bowtie2比对之前，用到的是获取目标fasta文件每条序列的长度,去除蛋白质中的*,-,?这个功能。
+<!--吓死我了，还以为要读1000行perl-->
+```shell
+#tools_fasta.pl -in contig.all -out contig.fas -cut 1000 -function length
+tools_fasta.pl -in contig.all -out contig.fas -cut 150 -function length
+```
+
+<!--先读这个选项的函数，可能同时要pick up some perl，再完善DBI数据库相关的配置，再跑完提取叶绿体基因组所有脚本 -->
 
 
 
