@@ -14,7 +14,7 @@
 3. 植物叶绿体基因组中核酸置换速率适中，是核基因组的约五分之一，是植物线粒体基因组的约５倍左右。
 4. 叶绿体基因组不同区域进化速率差异显著。受功能保守的限制，其蛋白编码区进化速率较慢，可被广泛应用于较大分类单位的系统进化分析。其非编码序列表现出较快的进化速率，可为系统进化发育分析提供大量的信息，适用于低分类阶元的研究。
 
-[东当归*Angelica acutiloba*的叶绿体结构与注释情况](https://github.com/ViciaYuan/Bioinfo-pipelines/tree/master/cpg-analysis/Angelica_acutiloba.png)
+![东当归*Angelica acutiloba*的叶绿体结构与注释情况](https://github.com/ViciaYuan/Bioinfo-pipelines/tree/master/cpg-analysis/Angelica_acutiloba.png)
 <br>
 
 ## 基因组组装的算法原理
@@ -26,7 +26,7 @@
 
 目前构建Graph的主流方法有3种，Overlap-Layout-Consensus（Celera Assembler、PBcR），de Bruijn Graph（SOAPdenovo） 和 String Graph（Falcon）。本次组装叶绿体基因组用的是SOAPdenovo这个软件，首先将reads打断成长度为K的核酸片段，即Kmer，再利用Kmer间的overlap关系构建de Bruijn 图，再通过de Bruijn图得到基因组序列。
 
-[SOAPdenovo组装算法流程](https://github.com/ViciaYuan/Bioinfo-pipelines/tree/master/cpg-analysis/soapdenovo.png)
+![SOAPdenovo组装算法流程](https://github.com/ViciaYuan/Bioinfo-pipelines/tree/master/cpg-analysis/soapdenovo.png)
 
 
 <br>
