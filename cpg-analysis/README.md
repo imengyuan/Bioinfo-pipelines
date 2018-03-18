@@ -131,10 +131,8 @@ tools_fasta.pl -in contig.all -out contig.fas -cut 150 -function length
 tools_fasta.pl -in contig.all -out contig.fas -cut 150 -function length
 ```
 
-<!--先读这个选项的函数，可能同时要pick up some perl，再完善DBI数据库相关的配置，再跑完提取叶绿体基因组所有脚本 -->
-
-
-
+<!--先读这个选项的函数，可能同时要pick up some perl，再完善DBI数据库相关的配置，再跑完提取叶绿体基因组所有脚本
+周日：试了单独跑那段代码，没有报错也没有输出，估计要再多看下perl看下代码具体是什么意思，争取改来能跑 -->
 
 
 
