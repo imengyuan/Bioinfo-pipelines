@@ -635,5 +635,26 @@ now may move onto step 11
 最终生成的KT963036.all.cns.fas仅170kb
 
 
+最终的文件结构为：
+```
+├── KT781591.fasta
+├── KT963036.fasta
+├── KT963037.fasta
+├── KT963038.fasta
+├── KX118044.fasta
+├── MF594405.fasta
+├── NC_029392.fasta
+├── NC_029393.fasta
+├── SQ_H3K5YDMXX_L1_1.clean.fq.gz
+├── SQ_H3K5YDMXX_L1_2.clean.fq.gz
+└── results
+    ├── K
+    ├── KT963036.all.out.sam
+    ├── KT963036.split.fasta
+    ├── combine.mapped_1.fq
+    ├── combine.mapped_2.fq
+    ├── contig.fas
+    └── logs
+```
 
 
