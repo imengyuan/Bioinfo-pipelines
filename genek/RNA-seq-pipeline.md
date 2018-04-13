@@ -14,9 +14,9 @@
 安装bioconda
 ```
 #install 
-Wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh 
 Sh .sh 
-Source ~/.bashrc 加入环境变量 
+source ~/.bashrc 加入环境变量 
 
 #Use 
 conda install 
