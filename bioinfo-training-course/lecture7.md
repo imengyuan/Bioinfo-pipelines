@@ -32,7 +32,7 @@ jellyfish 2.2.6
 
 
 ## Trinity protocol
-1. collect data
+1. collect datax
 2. assembly using Trinity
 
 /home/train129/software/trinityrnaseq_r2013-02-25/Trinity.pl --seqType fq --JM 4G --left reads.all.left.fq --right reads.all.right.fq --SS_lib_type RF --CPU 6
@@ -43,6 +43,6 @@ TRINITY_HOME/util/TrinityStats.pl trinity_out_dir/Trinity.fasta
 4. abundance estimation using RSEM
 5. differential expression analysis using edgeR
 
-Trinity --seqType fq  --left /tmpdata/train128/reads.test.left.fq --right /tmpdata/train128/reads.test.right.fq --SS_lib_type RF --max_memory 4G
+./Trinity --seqType fq  --left /tmpdata/train128/reads.test.left.fq --right /tmpdata/train128/reads.test.right.fq --SS_lib_type RF --max_memory 4G
 
 
