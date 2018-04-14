@@ -1,0 +1,28 @@
+>>> seq = [1,2,3,4]
+>>> seq
+[1, 2, 3, 4]
+>>> a,b,c,d = seq
+>>> a,b,c,d
+(1, 2, 3, 4)
+>>> a,b = seq
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: too many values to unpack (expected 2)
+>>> a,*b = seq
+>>> a,b
+(1, [2, 3, 4])
+>>> *a,b = seq
+>>> a,b
+([1, 2, 3], 4)
+>>> a,*b,c = seq
+>>> a,b,c
+(1, [2, 3], 4)
+>>> a,b,*c = seq
+>>> a,b,c
+(1, 2, [3, 4])
+>>> a,b,c,*d = seq
+>>> a,b,c,d
+(1, 2, 3, [4])
+>>> a,b,c,d,*e = seq
+>>> a,b,c,d,e
+(1, 2, 3, 4, [])
