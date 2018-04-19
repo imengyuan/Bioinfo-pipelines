@@ -1,7 +1,8 @@
 # biopython模块的使用
 
+[Tutorial](http://biopython.org/DIST/docs/tutorial/Tutorial.html)
 
-## Exercise
+## Exercise 
 
 * subtest002.py
 ```python
