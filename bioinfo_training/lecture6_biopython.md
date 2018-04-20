@@ -1,6 +1,59 @@
 # biopython模块的使用
 
 [Tutorial](http://biopython.org/DIST/docs/tutorial/Tutorial.html)
+<br>
+
+* install
+```
+pip install biopython
+```
+
+```
+# create sequence and complement
+my_seq = Seq("AGCTTGCA")
+my_seq.complement()
+my_seq.reverse_compliment()
+
+# read fasta
+from Bio import SeqIO
+for seq_record in SeqIO.parse("test.fasta","fasta"):
+    print(seq_record.id)
+    print(repr(seq_record.seq))
+    print(len(seq_record))
+
+# sequence as strings
+from Bio.Seq import Seq
+from Bio.Alphabet import IUPAC
+my_seq = Seq("GACTGA",IUPAC.unambiguous_dna)
+for index,letter in enumerate(my_seq):
+    print("%i %s" % (index,letter))
+
+# seq count
+from Bio.Seq import Seq
+"AAAA".count("AA") #2
+Seq("AAAA").count("AA") #2
+
+# SeqUtils(GC)
+from Bio.Seq import Seq
+from Bio.Alphabet import IUPAC
+from Bio.SeqUtils import GC
+my_seq = Seq("GACTGA",IUPAC.unambiguous_dna)
+GC(my_seq) # 50.0
+my_seq[4:10]
+
+
+# change case
+from Bio.Seq import Seq
+from Bio.Alphabet import generic_data
+dna_seq = Seq("acgAGC",generic_dna)
+dna_seq.upper()
+dna_seq.lower()
+
+# transcribe, translation
+
+
+
+```
 
 ## Exercise 
 
