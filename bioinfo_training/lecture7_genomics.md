@@ -10,7 +10,8 @@
 1. 样品设计
  数量、生长发育阶段、性别、取样部位；特殊处理（去除肠道、多培养几代）？混合样品？
 
-注释
+<br>
+
 ## 重复注释
 三种方案
 * 从头预测
@@ -52,6 +53,8 @@ perl /data/project/jjz/dalian/5.repeatmask/denovo/soft_mask_by_gff.pl test.fa  r
  >>test_repeat.fa
 ```
 
+
+<br>
 
 ## 结构注释
 三种方式
@@ -96,6 +99,8 @@ awk 'BEGIN{OFS="\t"}{$3="CDS";$6="";$9="Name="$9;print }' snap.gff > snap.gff3
 perl /data/project/tools/EVidenceModeler-1.1.1/EvmUtils/misc/SNAP_to_GFF3.pl snap.gff3 > snap.evm.gff3
 ```
 
+<br>
+
 ## 功能注释
 ![]()
 
@@ -110,6 +115,9 @@ Prokaryotic expression，knock down, know off in model organisms …
 将所有注释到的基因提取到蛋白质序列，将这些蛋白质基因桶过blast与各个蛋白质数据库相比对。最终得到基因的注释信息。
 
 几个数据库
+
+<br>
+
 ### GO three top roots
 * molecular function
 molecular activities of gene products: the tasks preformed by individual gene products; carbohydrate binding, ATPase activity
@@ -118,11 +126,17 @@ where gene products are active: Subcellular structures, locations, and macromole
 * biological process
 pathways and larger processes made up of the activities of multiple gene products: broad biological goals; mitosis or purine metabolism, that are accomplished by ordered assemblies of molecular functions
 
+<br>
+
 ### KEGG pathway [](http://www.genome.jp/kegg/)
 A series of actions among molecules in a cell that leads to a certain product or a change in a cell.
 
+<br>
+
 ### UniProt [](http://www.uniprot.org)
 ### InterProt [](https://www.ebi.ac.uk/interpro/)
+
+<br>
 
 ### 操作
 1. NR数据库
