@@ -62,7 +62,7 @@ perl /data/project/jjz/dalian/5.repeatmask/denovo/soft_mask_by_gff.pl test.fa  r
 * 基于蛋白质的同源预测
 * 基于转录组的预测
 所有的注释结果最后利用EVM或者GLEAN的方式进行整合，最终得到可靠的基因区域
-![]()
+![](https://github.com/ViciaYuan/Bioinfo-pipelines/tree/master/bioinfo_training/structure_annotation.png)
 
 常用于De novo 预测的软件有： Augustus、Glimmer、Genscan、GeneMark、SNAP等。
 
@@ -102,7 +102,7 @@ perl /data/project/tools/EVidenceModeler-1.1.1/EvmUtils/misc/SNAP_to_GFF3.pl sna
 <br>
 
 ## 功能注释
-![]()
+![](https://github.com/ViciaYuan/Bioinfo-pipelines/tree/master/bioinfo_training/function_annotation.png)
 
 * Experiment
 Prokaryotic expression，knock down, know off in model organisms …
