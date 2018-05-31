@@ -1,15 +1,11 @@
 # 群体遗传学基础和重测序分析
 
+## samtools参数
 flag 是否比对上
 stat 测序深度
 merge 合并3个bam
 fasidx fasta index
 mpileup call snp
-
-from Bio import SeqIO
-
-seq_length = [len(seq_record) for seq_record in SeqIO.parse("peu01.1.part.fq.gz","fastq.gz")]
-print("the number of sequences is ", len(seq_length))
 
 zcat peu01.1.part.fq.gz | wc -l #算行数
 

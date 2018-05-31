@@ -1,0 +1,1 @@
+/data/part2/software/samtools-1.8/samtools mpileup -A -ug -t DP -t SP -t DP4 -f /tmpdata/train128/snp/scaffold37_cov106.fa -r scaffold37_cov106 -b 01.bam.list | /data/part2/software/bcftools-1.8/bcftools call -vmO z -o 02.vcf/scaffold37_cov106.vcf.gz
