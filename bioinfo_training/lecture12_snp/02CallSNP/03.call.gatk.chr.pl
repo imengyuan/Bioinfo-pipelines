@@ -4,9 +4,9 @@ use strict;
 use warnings;
 
 my $now=$ENV{'PWD'};
-my $dict="/data/part2/data/scaffold37_cov106.dict";
-my $ref="/data/part2/data/scaffold37_cov106.fa";
-my @bam=</data/part2/data/01.bam/*.bam>;
+my $dict="/tmpdata/train128/snp/scaffold37_cov106.dict";
+my $ref="/tmpdata/train128/snp/scaffold37_cov106.fa";
+my @bam=</tmpdata/train128/snp/03.gatk/*.bam>;
 my $gatk = "/data/part2/software/GenomeAnalysisTK.jar";
 
 open(O,"> bam.list");
