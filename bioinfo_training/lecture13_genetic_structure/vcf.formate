@@ -1,0 +1,93 @@
+ Variant Call Format(VCF)是一个用于存储基因序列突变信息的文本格式。表示单碱基突变, 插入/缺失, 拷贝数变异和结构变异等。BCF格式文件是VCF格式的二进制文件。
+
+　　CHROM [chromosome]: 染色体名称。
+
+　　POS [position]: 参考基因组突变碱基位置，如果是INDEL(插入缺失)，位置是INDEL的第一个碱基位置。
+
+　　ID [identifier]: 突变的名称。若没有，则用‘.’表示其为一个新变种。
+
+　　REF [reference base(s)]: 参考染色体的碱基，必须是ATCGN中的一个，N表示不确定碱基。
+
+　　ALT [alternate base(s)]: 与参考序列比较，发生突变的碱基;多个的话以“,”连接， 可选符号为ATCGN*，大小写敏感。
+
+　　QUAL [quality]: Phred标准下的质量值，表示在该位点存在突变的可能性;该值越高，则突变的可能性越大;计算方法：Phred值 = -10 * log (1-p) p为突变存在的概率。
+
+　　FILTER [filter status]: GATK使用其它的方法进行过滤后得到的过滤结果，如果通过则该值为“PASS”;若此突变不可靠，则该项不为”PASS”或”.”。
+
+　　INFO [additional information]: 表示变异的详细信息
+
+　　DP [read depth]: 样本在这个位置的一些reads被过滤掉后的覆盖度
+
+　　DP4 : 高质量测序碱基，位于REF或者ALT前后
+
+　　MQ [mapping quality]: 表示覆盖序列质量的均方值RMS
+
+　　FQ : Phred值关于所有样本相似的可能性
+
+　　AF1 [allele frequency]: 表示Allele(等位基因)的频率，AF1为第一个ALT等位基因发生频率的可能性评估
+
+　　AC1 [allele count]: 表示Allele(等位基因)的数目,AC1为对第一个ALT等位基因计数的最大可能性评估
+
+　　AN [allele number]: 表示Allele(等位基因)的总数目
+
+　　IS : 插入缺失或部分插入缺失的reads允许的最大数量
+
+　　AC [allele count]: 表示该Allele(等位基因)的数目
+
+　　G3 : ML 评估基因型出现的频率
+
+　　HWE : chi^2基于HWE的测试p值和G3
+
+　　CLR : 在受到或者不受限制的情况下基因型出现可能性的对数值
+
+　　UGT : 最可能不受限制的三种基因型结构
+
+　　CGT : 最可能受限制三种基因型结构
+
+　　PV4 : 四种P值的误差，分别是(strand、baseQ、mapQ、tail distance bias)
+
+　　INDEL : 表示该位置的变异是插入缺失
+
+　　PC2 : 非参考等位基因的Phred(变异的可能性)值在两个分组中大小不同
+
+　　PCHI2 : 后加权chi^2，根据p值来测试两组样本之间的联系
+
+　　QCHI2 : Phred标准下的PCHI2.
+
+　　PR : 置换产生的一个较小的PCHI2
+
+　　QBD [quality by depth]: 表示测序深度对质量的影响
+
+　　RPB [read position bias]: 表示序列的误差位置
+
+　　MDV : 样本中高质量非参考序列的最大数目
+
+　　VDB [variant distance bias]: 表示RNA序列中过滤人工拼接序列的变异误差范围
+
+　　GT [genotype]: 表示样品的基因型。两个数字中间用‘/’分 开，这两个数字表示双倍体的sample的基因型。
+
+　　0 表示样品中有ref的allele
+
+　　1 表示样品中variant的allele
+
+　　2表示有第二个variant的allele
+
+　　0/0 表示sample中该位点为纯合的，和ref一致
+
+　　0/1 表示sample中该位点为杂合的，有ref和variant两个基因型
+
+　　1/1 表示sample中该位点为纯合的，和variant一致
+
+　　GQ [genotype quality]: 表示基因型的质量值。Phred格式的质量值，表示在该位点该基因型存在的可能性;该值越高，则Genotype的可能性越 大;计算方法：Phred值 = -10 * log (1-p) p为基因型存在的概率。
+
+　　GL : 三种基因型(RR RA AA)出现的可能性，R表示参考碱基，A表示变异碱基
+
+　　DV : 高质量的非参考碱基
+
+　　SP : Phred的p值误差线
+
+　　PL [provieds the likelihoods of the given genotypes]: 指定的三种基因型的质量值。三种指定的基因型为(0/0,0/1,1/1)，这三种基因型的概率总和为1。该值越大，表明为该种基因型的可能性越小。 Phred值 = -10 * log (p) p为基因型存在的概率。
+
+　　FORMAT : 用于描述样本的(可选)可扩展的字段列表
+
+　　SAMPLEs : 对于文件中描述的每一个(可选)样本，给出了在格式中列出的字段的值
