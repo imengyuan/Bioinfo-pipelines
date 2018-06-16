@@ -1,0 +1,324 @@
+0.vcf的提取和过滤
+（1）编写test.list，记录scaffold37_cov106.vcf.gz中要用到的物种；
+（2）运行 /data/part2/software/vcftools_0.1.12b/bin/vcftools gzvcf scaffold37_cov106.vcf.gz --keep test.list --recode --recode-INFO-all --out test
+#从scaffold37_cov106.vcf.gz中找出test.list中的物种的信息，生成test.vcf
+ (3)gzip test.vcf #压缩为gz文件
+ (4)编写脚本，对得到的vcf.gz 进行过滤，得到新的vcf。过滤标准为：过滤多等位基因(alt列有逗号的一行不要)、保留质量值大于100的、查看是否存在SNP位点(只有 0/0 或 1/1或 ./.的不要)、删除Miss大于23的。（23 = 46（物种总数）* 50%）
+1.PCA分析
+ （1）/data/part2/software/plink-v1.90/plink --vcf scaffold37_cov106.vcf.gz --pca --allow-extra-chr --out scaffold37_cov106 
+ （2）使用plink，得到scaffold37_cov106.eigenval、scaffold37_cov106.eigenvec等4个文件，用以解释主成分分析。
+ （3）scaffold37_cov106.eigenval可用Excel打开，选取数据第一列与第二列、第一列与第三列作散点图，得到PCA图（>横PC1 纵PC3 >横PC1 纵PC2）。
+2.结构分析（structure analysis）
+ （1）/data/part2/software/plink-v1.90/plink --vcf output.vcf.gz --allow-extra-chr --out output#运行指令，得到XXX.bam,XXX.fam,XXX.bim等文件。
+ （2）编写脚本或直接用Excel将bim文件的第一列从scaffold37全部改成1。
+ （3）编写bed.sh,内容如下：
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 1 | tee 02.filter.vcf.bed.1.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 2 | tee 02.filter.vcf.bed.2.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 3 | tee 02.filter.vcf.bed.3.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 4 | tee 02.filter.vcf.bed.4.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 5 | tee 02.filter.vcf.bed.5.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 6 | tee 02.filter.vcf.bed.6.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 7 | tee 02.filter.vcf.bed.7.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 8 | tee 02.filter.vcf.bed.8.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 9 | tee 02.filter.vcf.bed.9.log
+	/data/part2/software/admixture_linux-1.3.0/admixture --cv -j12 02.filter.vcf.gz.bed 10 | tee 02.filter.vcf.bed.10.log
+ （4）运行bed.sh,得到一系列.P和.Q文件。在Excel下打开.Q，在第一列插入物种名，利用各列数据作堆积柱形图。
+ 3.构建NJ树
+ （1）/data/part2/software/plink-v1.90/plink --vcf mid_2.vcf  --make-bed --allow-extra-chr
+ 	 /data/part2/software/plink-v1.90/plink --bfile  plink allow-extra-chr --distance-matrix
+ 	 #得到plink.mdist（进化距离）和plink.mdist.id（物种名）
+  (2)编写脚本或直接用Excel修改，整合plink.mdist和plink.mdist.id中的信息，使新生成的plink.phylip第一列为物种名，每列为该物种进化距离信息。
+ （3）/data/part2/software/treebest nj -b 100 plink.mdist.phylip > scaffold37_cov106.nj#使用treebest构建NJ树
+ （4）登录http://phylo.io，上传scaffold37_cov106.nj文件，查看得到的进化树模型。
+ 4.计算Fst
+ #Fst:判断群体分化水平
+ （1）创建peu.txt、ppr.txt、pil.txt、ptr.txt。
+ （2）vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop peu.txt --weir-fst-pop ppr.txt  --out peu_ppr.fst
+	vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop peu.txt --weir-fst-pop pil.txt  --out peu_pil.fst
+	vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop peu.txt --weir-fst-pop ptr.txt  --out peu_ptr.fst
+	vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop ppr.txt --weir-fst-pop pil.txt  --out ppr_pil.fst
+	vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop ppr.txt --weir-fst-pop ptr.txt  --out ppr_ptr.fst
+	vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop pil.txt --weir-fst-pop ptr.txt  --out pil_ptr.fst
+ （3）用Excel打开6个fst文件，查找替换掉无效值，计算剩余fst平均值，并建表统计。
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##  计算生物学6.8
+
+
+路径
+
+
+```
+/data/part2/scaffold37_cov106.vcf.gz
+```
+
+* 迁移 一般是大群体迁移出来小群体
+
+>F st:判断群体分化水平
+>
+
+* 聚类分析
+
+>PCA:降维
+>系统发育树
+>结构分析 structure analysis
+
+* phylogenetic tree
+
+绘图判断杂合纯合
+
+* 驯化：农业也就10000年时间，但性状变化很大
+
+0608主要任务
+
+* 进化树
+* PCA
+
+
+```
+ln -s /data/part2/scaffold37_cov106.vcf.gz
+
+```
+
+### PCA: plink软件
+  
+  **http://www.cog-genomics.org/plink2**
+  
+ general usage
+  **http://www.cog-genomics.org/plink/1.9/general_usage**
+  
+
+
+```
+#step 1
+/data/part2/software/plink-v1.90/plink --vcf /tmpdata/train102/0608/scaffold37_cov106.vcf.gz  --pca --allow-extra-chr  --out /tmpdata/train102/0608/scaffold37_cov106
+
+
+#eigenval PCA主成分
+#scaffold37_cov106.eigenvec 各成分，我们之后加一些其他参数画图
+
+
+#step2 配环境变量
+vim ~/.bashrc
+export PATH=$PATH:/data/part2/software/plink-v1.90/plink
+source  ~/.bashrc
+
+
+#画图
+#跳过，不作要求
+
+```
+
+### admixture
+
+
+```
+less -S scaffold37_cov106.vcf.gz
+
+#各个位点，structure只识别双等位基因的SNP
+#我们需要过滤，只拿出来SNP位点
+#
+
+
+```
+
+**过滤标准**
+
+* 过滤多等位基因，alt列有逗号的一行不要
+
+* 质量值 大于100的才保留
+
+* 是否存在SNP位点，只有 0/0 或 1/1或 ./.的不要
+* 删除Miss大于20
+
+**结果：
+1.统计删除了各种位点的数目
+2.输出到一个新vcf**
+
+plink
+
+
+```
+/data/part2/software/plink-v1.90/plink  --vcf mid_2.vcf --allow-extra-chr --out filtered.out
+
+
+#sed -i 's/原字符串/替换字符串/g' filename
+sed -i 's/scaffold37_cov106/1/g' filtered.out.bim
+
+#
+for i in $(seq 1 10);do admixture --cv -j12 filtered.out.bed $i | tee filtered.out.bed.${i}.log;done
+```
+
+### part2
+
+plink.fam文件含有个体编号
+
+bim文件第一列换成1
+
+
+
+```
+#1
+/data/part2/software/plink-v1.90/plink --vcf mid_2.vcf  --make-bed --allow-extra-chr
+
+
+
+/data/part2/software/plink-v1.90/plink --bfile  plink allow-extra-chr --distance-matrix
+
+#3
+
+```
+
+
+`/data/part2/software/plink-v1.90/plink --bfile  plink allow-extra-chr --distance-matrix`
+
+
+
+plink.mdist组成新文件plink.mdist.id
+
+```
+#10个字符串 反斜线
+treebest nj -b 100 after.midst > scaffold37_cov106.filtered.nj
+
+```
+
+`http://phylo.io`
+
+
+作业:
+
+三个图一个表
+
+ng 
+>以ptr的枝为root
+
+structure ： 
+>k从1-6
+>用Q文件来画图
+
+PCA 
+>横PC1 纵PC3
+>横PC1 纵PC2
+
+表
+fst，两两之间的fst值
+
+数据:
+ppr 9:18
+ptr 25:35
+peu 46:55
+pil 56:71
+
+
+* miss 50%
+
+
+1. 提物种
+
+ppr ptr peu pil
+
+
+
+
+
+
+* PCA
+
+
+```
+plink --vcf 4_species_filtered.vcf --pca --allow-extra-chr
+
+/data/part2/software/plink-v1.90/plink  --vcf 4_species_filtered.vcf --allow-extra-chr --out filtered.out
+
+sed -i 's/scaffold37_cov106/1/g' filtered.out.bim
+
+for i in $(seq 1 6);do admixture --cv -j12 filtered.out.bed $i | tee filtered.out.bed.${i}.log;done
+```
+
+structure
+
+
+PCA图
+
+==用.eigenvec画散点图==
+
+第三列PC1，以此类推
+
+计算fst
+
+peu.txt
+ppr.txt
+pil.txt
+ptr.txt
+
+```
+vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop peu.txt --weir-fst-pop ppr.txt  --out peu_ppr.fst
+
+vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop peu.txt --weir-fst-pop pil.txt  --out peu_pil.fst
+
+vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop peu.txt --weir-fst-pop ptr.txt  --out peu_ptr.fst
+
+vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop ppr.txt --weir-fst-pop pil.txt  --out ppr_pil.fst
+
+vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop ppr.txt --weir-fst-pop ptr.txt  --out ppr_ptr.fst
+
+
+vcftools --vcf 4_species_filtered.vcf  --weir-fst-pop pil.txt --weir-fst-pop ptr.txt  --out pil_ptr.fst
+
+
+```
+
+
+
+流程整理
+
+
+1.PCA绘图
+
+
+```
+plink --vcf 4_species_filtered.vcf --pca --allow-extra-chr
+
+/data/part2/software/plink-v1.90/plink  --vcf 4_species_filtered.vcf --allow-extra-chr --out filtered.out
+
+sed -i 's/scaffold37_cov106/1/g' filtered.out.bim
+
+for i in $(seq 1 6);do admixture --cv -j12 filtered.out.bed $i | tee filtered.out.bed.${i}.log;done
+```
+
+
+==用.eigenvec画散点图==
+
+2.ng绘图
+
+
+```
+/data/part2/software/plink-v1.90/plink --vcf mid_2.vcf  --make-bed --allow-extra-chr
+
+/data/part2/software/plink-v1.90/plink --bfile  plink --allow-extra-chr --distance-matrix
+```
+
+* plink.mdist组成新文件plink.mdist.id
+* #10个字符串 反斜线
+* /data/part2/software/treebest nj -b 100 after.midst > scaffold37_cov106.filtered.nj`
+* `http://phylo.io`用.nj文件绘图
+
+3.
+
+
+
