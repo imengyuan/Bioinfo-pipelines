@@ -1,9 +1,12 @@
 # PSMC, SMC++ & HKA Calculation
 
 ## psmc
+
+This software package infers population size history from a diploid sequence using the Pairwise Sequentially Markovian Coalescent (PSMC) model.
+
 Link to Software& README https://github.com/lh3/psmc
 
-This software package infers population size history from a diploid sequence using the Pairwise Sequentially Markovian Coalescent (PSMC) model
+
 
 
 
@@ -134,13 +137,16 @@ for i in *.psmc;do psmc_plot.pl -g 10 ${i%.psmc} $i;done
 <br>
 
 ## smcpp
+
+SMC++ is a program for estimating the size history of populations from whole genome sequence data
+
 Link to Software& README: https://github.com/popgenmethods/smcpp
 
-输入scaffold37_cov106.vcf.gz
+原始数据 scaffold37_cov106.vcf.gz
+
 ```shell
 #压缩成bgzip格式才能识别
 zcat scaffold37_cov106.vcf.gz| /data/part2/software/samtools-1.8/htslib-1.8/bgzip -c>scaffold37_cov106.vcf.bgzip.gz
-
 #建立索引
 /data/part2/software/samtools-1.8/htslib-1.8/tabix -p vcf scaffold37_cov106.vcf.bgzip.gz
 ```
@@ -158,23 +164,35 @@ smc++ plot peu.plot.pdf ./model.final.json
 
 
 ## HKA Calculation
-输入scaffold37_cov106.vcf.gz
 
-* HKA.01.pl
-01.pl.out
+
+
+<!--所以kha值啥意思，有啥用？-->
+原始数据：scaffold37_cov106.vcf.gz
+### 计算
+* HKA.01.pl 从vcf得到每个个体每个位置变异状态(mis/ref/alt/het)
+* HKA.02.pl 从01.pl.out结果文件提取单个物种K值、D值
+* HKA.03.pl
+* HKA.04.py
+* 04.py 同学写的，作用与HKA.04.py相同
+
+### 计算结果文件
+
+* 01.pl.out
 ```
 #scaffold       Pos     PPr     Pang    Pdel    Pfre    Plas    Pnig    Ptr
 scaffold37_cov106       59      mis     mis     mis     mis     mis     mis
 scaffold37_cov106       93      ref     mis     ref     mis     mis     mis
 scaffold37_cov106       95      het     mis     alt     mis     mis     mis
-scaffold37_cov106       98      ref     mis     ref     mis     mis     ref
-scaffold37_cov106       104     ref     mis     ref     mis     mis     ref
-scaffold37_cov106       106     ref     mis     ref     mis     mis     ref
-scaffold37_cov106       108     ref     mis     ref     mis     mis     het
-scaffold37_cov106       116     ref     mis     ref     mis     mis     ref
+
 ```
 
-02.pl.out
+* 02.pl屏幕输出
+```
+PPr:  fixed:32281 poly:54575 
+```
+
+* 03.pl.out
 ```
 model.final.json              PPr.scaffold37_cov106.smc.gz
 #scaffold       start   end     D       K       GenomeD GenomeK

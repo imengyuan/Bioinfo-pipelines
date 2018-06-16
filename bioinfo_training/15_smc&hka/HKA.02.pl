@@ -24,6 +24,6 @@ while(<F>){
 	}
 }
 close(F);
-print "PPr: $D fixed: $K poly\n";
+print "PPr:  fixed:$D poly:$K \n";
 
-#32281 54575
+#output: 32281 54575

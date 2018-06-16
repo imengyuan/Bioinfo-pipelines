@@ -34,7 +34,7 @@ while(<F>){
 }
 close(F);
 print "PPr: $D fixed: $K poly\n";
-open(O,'>',"HKA.02.pl.out");
+open(O,'>',"HKA.03.pl.out");
 print O "#scaffold\tstart\tend\tD\tK\tGenomeD\tGenomeK\n";
 my @wind=sort{$a<=>$b}(keys %wind);
 for(my $i=0;$i<@wind;$i++){
@@ -47,4 +47,4 @@ for(my $i=0;$i<@wind;$i++){
 }
 close(O);
 
-#32281 54575
+
