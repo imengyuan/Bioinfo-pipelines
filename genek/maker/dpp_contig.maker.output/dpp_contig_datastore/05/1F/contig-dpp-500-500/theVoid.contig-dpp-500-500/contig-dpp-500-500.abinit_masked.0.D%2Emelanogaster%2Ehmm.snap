@@ -1,7 +1,0 @@
->contig-dpp-500-500 masked CHUNK number:0 size:32156 offset:0
-Esngl	238	420	-	26.391	0	0	2	contig-dpp-500-500-snap.1
-Einit	27165	27237	-	6.852	0	1	2	contig-dpp-500-500-snap.2
-Exon	23761	23969	-	4.023	2	0	2	contig-dpp-500-500-snap.2
-Eterm	15992	16000	-	13.329	0	0	1	contig-dpp-500-500-snap.2
-Einit	27517	27985	+	106.289	0	1	0	contig-dpp-500-500-snap.3
-Eterm	29709	30607	+	129.213	2	0	1	contig-dpp-500-500-snap.3

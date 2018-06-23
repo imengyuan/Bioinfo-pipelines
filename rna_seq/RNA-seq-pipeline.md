@@ -117,6 +117,8 @@ nohup sh filter.sh &
 #把软件路径添加到环境变量
 vi ~/.bashrc -> add a new line -> source ./bashrc
 
+export PATH="/home/ubuntu/miniconda3/bin/:$PATH"
+trinity-2.6.6
 Trinity options:
 --seqtype
 --max_memory

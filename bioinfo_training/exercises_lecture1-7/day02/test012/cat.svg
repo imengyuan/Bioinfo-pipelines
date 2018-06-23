@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="10000" height="10000" xmlns="http://www.w3.org/2000/svg">
+<title>Cat</title>
+<desc>Stick Figure of a Cat</desc>
+<!-- the drawing will go here -->
+<!--face-->
+<circle cx="250" cy="300" r="100" style="stroke:black;fill:none;"/>
+<!--eyes-->
+<circle cx="200" cy="250" r="20" style="stroke:black;fill:pink;"/>
+<circle cx="300" cy="250" r="20" style="stroke:black;fill:pink;"/>
+<!--ears-->
+<line x1="200" y1="210" x2="210" y2="150" style="stroke:black;"/>
+<line x1="210" y1="150" x2="250" y2="200" style="stroke:black;"/>
+<line x1="250" y1="200" x2="290" y2="150" style="stroke:black;"/>
+<line x1="290" y1="150" x2="300" y2="210" style="stroke:black;"/>
+<!--beards-->
+<line x1="140" y1="290" x2="250" y2="300" style="stroke:black;"/>
+<line x1="140" y1="310" x2="250" y2="300" style="stroke:black;"/>
+<line x1="360" y1="290" x2="250" y2="300" style="stroke:black;"/>
+<line x1="360" y1="310" x2="250" y2="300" style="stroke:black;"/>
+<!--nose-->
+<circle cx="250" cy="300" r="10" style="stroke:black;fill:pink;"/>
+<!--mouth-->
+<line x1="160" y1="340" x2="170" y2="350" style="stroke:black;"/>
+<line x1="340" y1="340" x2="330" y2="350" style="stroke:black;"/>
+<line x1="170" y1="350" x2="330" y2="350" style="stroke:black;"/>
+
+</svg>

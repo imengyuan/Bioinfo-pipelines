@@ -1,0 +1,6 @@
+# 列出顶层目录中的文件文件夹
+ls /
+# 创建一个工作目录
+mkdir project
+cd project
+mkdir day01

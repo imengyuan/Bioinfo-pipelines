@@ -1,5 +1,11 @@
 # Bioinfo-pipelines
 
-Bioinfo-training course是这学期计算生物学研究训练课程的笔记和一些总结。
+There are three main parts of this repo:
+* __bioinfo_raining__: Notes& summary of computational biology training course (for third-year undergrates) 
+* __cpg_analysis__: Pipeline notes on chloroplast genome analysis (with a focus on assembly for now )
+* __RNA_seq__: RNA-sequencing based analysis notes (still in preparation)
 
-genek是去年看[基因课](http://www.genek.tv/)一些视频教程的笔记和总结，暂时没整理完， 不定期更新。
+Check each individual folder for details:D
+
+
+

@@ -1,0 +1,15 @@
+# 编译安装
+cd /tmp
+tar -zxvf putty-0.70.tar.gz
+cd putty-0.70
+./configure --prefix=/home/train128/software
+make
+make install
+
+# 转key为ppk格式
+## 上传key到 ~/software 目录下
+## 转ppk格式
+cd ~/software/bin
+./puttygen ../train128.key -o train128.ppk
+
+
