@@ -3,11 +3,12 @@
 [Tutorial](http://biopython.org/DIST/docs/tutorial/Tutorial.html)
 <br>
 
-* install
+## Install
 ```
 pip install biopython
 ```
 
+## Use
 ```
 # create sequence and complement
 my_seq = Seq("AGCTTGCA")
@@ -57,7 +58,7 @@ dna_seq.lower()
 
 ## Exercise 
 
-* subtest002.py
+*  subtest002.py
 ```python
 # 读取一个fasta格式的文本文件，
 # 输出序列个数，序列总长，最长序列的长度，最短序列的长度，

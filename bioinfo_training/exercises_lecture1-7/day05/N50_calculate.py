@@ -5,13 +5,13 @@ records = SeqIO.parse("contigs.fa", "fasta")
 n=0
 seq_lengths = [len(seq_record) for seq_record in SeqIO.parse("contigs.fa", "fasta")]
 
-nlist = [repr(seq_record.seq).count('n') for seq_record in SeqIO.parse("contigs.fa", "fasta")]
+#nlist = [repr(seq_record.seq).count('n') for seq_record in SeqIO.parse("contigs.fa", "fasta")]
 total_length = sum(seq_lengths)
-n=sum(nlist)
+#n=sum(nlist)
 seq_lengths.sort()
 seq_lengths.reverse()
 sum = 0
-print(n)
+#print(n)
 print(total_length)
 print(total_length/2)
 print(seq_lengths)

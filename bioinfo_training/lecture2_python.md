@@ -1,8 +1,5 @@
 # python3 语言基础与实践
 
-[课件地址](http://222.18.10.115/class/2018-Spring/002-Python.html)
-
-感觉这随意的笔记感觉只能自己看懂了
 
 ## 一些基础
 * object type
@@ -26,7 +23,7 @@ x[i]  index
 ```
 splice: s[-1], s[1:3]
 concatenate: s+'abc'
-repete: s*5
+repeat: s*5
 string to list: l = list('abcd')
 join by empty: ''.join(l)
 find offset: s.find('pa')
@@ -91,22 +88,46 @@ while True:
 ```
 
 * 文件读写，字符串处理
-```
+```python
 # day03/test001 读取01-The_Philosophers_Stone.txt，输出下列结果
-total line numbers
-total word count
-each word freguency
-each character counts
-how many empty lines
-list distance between two words
+#test001 total line numbers
+count = len(open('01-The_Philosophers_Stone.txt','rU').readlines())
+#test002 total word count
+f = open('01-The_Philosophers_Stone.txt')
+info = f.read()
+alist = info.split(' ')  # 将文章按照空格划分开
+word = len(alist)  # 总的单词数
+blankspace = alist.count('')  # 空格的数量
+print("total word count is ", word - blankspace)
+f.close()
+#test003 each word freguency
 
-# day03/test002 读取 *.txt
-对每个txt文件输出上面各结果
+# test004 each character counts
+# test005 how many empty lines
+# test006 list distance between two words
 
-# day03/test004 生成ABCD组成的全部字符串，并进行下列的取值和计算
-取第i行第j，k,l个字符
-取第i行出现频率最少、与第1位ascii差异位1的字符
-第i行出现次数最多与最少之差
+# day03/test002 读取 *.txt 对每个txt文件输出上面各结果
+```
+
+
+生成ABCD组成的全部字符串，并进行下列的取值和计算
+```python
+# day03/test004 
+#test001 生成ABCD组成的全部字符串
+#取第i行第j，k,l个字符
+#取第i行出现频率最少、与第1位ascii差异位1的字符
+#第i行出现次数最多与最少之差
+```
+输出 test001.txt
+```
+AAAAAAAAAA
+AAAAAAAAAB
+AAAAAAAAAC
+AAAAAAAAAD
+AAAAAAAABA
+AAAAAAAABB
+AAAAAAAABC
+AAAAAAAABD
 ```
 
 * 判断与循环...
