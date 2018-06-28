@@ -35,7 +35,7 @@ Link to Software& README https://github.com/lh3/psmc
 # 生成.sh，画图好像不用
 /data/part2/software/psmc-0.6.5/utils/psmc2history.pl diploid.psmc | /data/part2/software/psmc-0.6.5/utils/history2ms.pl > ms-cmd.sh
 
-#生成eps格式的图片，mac玉兰油可以直接打开查看，windows要转换一下
+#生成eps格式的图片，mac预览可以直接打开查看，windows要转换一下
 #-g numbers of years per generation [15]
 # -u absolute mutation rate per nucletidels
 /data/part2/software/psmc-0.6.5/utils/psmc_plot.pl diploid diploid.psmc

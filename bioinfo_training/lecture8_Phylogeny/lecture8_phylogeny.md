@@ -22,10 +22,7 @@ Fan Z, Liu S, Liu Y, et al. Molecular phylogeny and taxonomic reconsideration of
 * NCBI给的指南 https://www.ncbi.nlm.nih.gov/sites/batchentrez
 * 使用geneious软件批量下载
 
-<center>
-<img src="./1.png" width = "50%"/>
-下载好的部分序列
-</center>
+
 
 <br>
 
