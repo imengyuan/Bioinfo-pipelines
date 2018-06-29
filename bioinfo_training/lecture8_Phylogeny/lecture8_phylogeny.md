@@ -91,7 +91,7 @@ modeltest jmodeltest都可使用，但是都没有mac的版本。这里放的是
 ```
 begin mrbayes;
 log filename=cytb.txt;
-outgroup NC_010339.1_Mus_musculus_muscu;
+outgroup Mus_musculus_musculus;
 lset
 nst=6
 rates=gamma;

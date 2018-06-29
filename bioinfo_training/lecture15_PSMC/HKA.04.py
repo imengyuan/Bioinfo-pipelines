@@ -1,5 +1,5 @@
 
-f = open("HKA.01.pl.out")
+f = open("02.HKA.out")
 lines = f.readlines()
 header_names = ["scaffold","start","end"]
 scaffold = ''
@@ -20,15 +20,15 @@ for line in lines:
 	else:
 		a = line.rstrip().split("\t")
 		pos = a[1]
-		wind = int(pos/10000)+1
+		
 
 		for n in [2,3,5,6,7,8,9,10,11,12,13,14]:
 			if a[n] == "het":
 				K += 1
-				wind[wind][D]+=1
-			if (record[i]=="alt" and record[4]=="ref")or(record[i]=="ref" and record[4]=="alt")
-				D += 1
-				wind[wind][K]+=1
+				  		
+				if (record[i]=="alt" and record[4]=="ref")or(record[i]=="ref" and record[4]=="alt"):
+    			D += 1
+				
 			out_list.append[K,D,]
 
 
