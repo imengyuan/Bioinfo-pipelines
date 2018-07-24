@@ -1,0 +1,13 @@
+#NEXUS
+
+[ID: 2929272247]
+begin trees;
+   [Note: This tree contains information on the topology, 
+          branch lengths (if present), and the probability
+          of the partition indicated by the branch.]
+   tree con_all_compat = (Mus_musculus_musculus:0.374346,Allacta_gaelater:0.196818,(((((((E.s.setchuanus_DB:0.006009,(E.s.setchuanus_DG1:0.001070,E.s.setchuanus_DG3:0.000835)0.95:0.004822)0.49:0.001821,(E.s.setchuanus_DG2:0.009609,(E.s.setchuanus_LT:0.006701,E.s.setchuanus_YJ:0.006493)0.93:0.002369)0.28:0.001165)0.75:0.004822,(E.s.setchuanus_LH:0.001434,(E.s.setchuanus_RT:0.001269,E.s.vicinus_WL3:0.002305)1.00:0.006983)0.80:0.004150)1.00:0.050768,(E.s.vicinus_JZG:0.002131,E.s.vicinus_WL4:0.001135)1.00:0.075851)1.00:0.077221,(E.s.vicinus_GSLT:0.033739,(E.s.vicinus_WL1:0.003374,E.s.vicinus_WL2:0.001682)1.00:0.045979)1.00:0.091241)1.00:0.048236,(((Zapus_trinotatus:0.078785,Zapus_princeps:0.182888)0.76:0.042193,(((Zapus_hudsonius:0.000713,Zapus_hudsonius_preblei:0.001058)0.84:0.003142,(Zapus_hudsonius_intermedius:0.001734,Zapus_hudsonius_campestris:0.002618)1.00:0.005289)1.00:0.055614,(Zapus_hudsonius_luteus:0.005856,Zapus_hudsonius_pallidus:0.006544)0.49:0.014167)1.00:0.123833)1.00:0.109465,NapaeoZapus_insignis:0.173487)1.00:0.080417)1.00:0.137817,(Dipus_sagitta:0.129734,Jaculus_jaculus:0.149257)1.00:0.117345)1.00:0.070366);
+
+   [Note: This tree contains information only on the topology
+          and branch lengths (mean of the posterior probability density).]
+   tree con_all_compat = (Mus_musculus_musculus:0.374346,Allacta_gaelater:0.196818,(((((((E.s.setchuanus_DB:0.006009,(E.s.setchuanus_DG1:0.001070,E.s.setchuanus_DG3:0.000835):0.004822):0.001821,(E.s.setchuanus_DG2:0.009609,(E.s.setchuanus_LT:0.006701,E.s.setchuanus_YJ:0.006493):0.002369):0.001165):0.004822,(E.s.setchuanus_LH:0.001434,(E.s.setchuanus_RT:0.001269,E.s.vicinus_WL3:0.002305):0.006983):0.004150):0.050768,(E.s.vicinus_JZG:0.002131,E.s.vicinus_WL4:0.001135):0.075851):0.077221,(E.s.vicinus_GSLT:0.033739,(E.s.vicinus_WL1:0.003374,E.s.vicinus_WL2:0.001682):0.045979):0.091241):0.048236,(((Zapus_trinotatus:0.078785,Zapus_princeps:0.182888):0.042193,(((Zapus_hudsonius:0.000713,Zapus_hudsonius_preblei:0.001058):0.003142,(Zapus_hudsonius_intermedius:0.001734,Zapus_hudsonius_campestris:0.002618):0.005289):0.055614,(Zapus_hudsonius_luteus:0.005856,Zapus_hudsonius_pallidus:0.006544):0.014167):0.123833):0.109465,NapaeoZapus_insignis:0.173487):0.080417):0.137817,(Dipus_sagitta:0.129734,Jaculus_jaculus:0.149257):0.117345):0.070366);
+end;

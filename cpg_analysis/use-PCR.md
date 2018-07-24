@@ -1,2 +1,6 @@
 # PCR + 一代测序修正叶绿体基因组组装结果
 
+2008年，NCBI新增了设计、分析PCR引物的工具——Primer-BLAST。Primer-BLAST的引物设计功能是基于NCBI现有的Primer3程序发展而来的，Primer3程序可以为一段DNA模板序列设计PCR引物。Primer-BLAST在设计出引物之后还在某些相应数据库中进行BLAST搜索，因此可以得到特异性引物，扩增出目的片段。用户在给出DNA模板的同时还可以限定正向引物或反向引物，这样，NCBI就只会给出另一条引物。如果用户给出了模板DNA和两条引物序列，Primer-BLAST就只会运行BLAST程序，帮助用户对引物进行分析。用户也可以只给出两条引物而不给出模板序列，这时Primer-BLAST会通过BLAST程序分析出与这对引物最匹配的模板序列。Primer-BLAST进行BLAST搜索的数据库包括RefSeq mRNA、BLAST nr和12种模式生物基因组数据库。
+
+
+

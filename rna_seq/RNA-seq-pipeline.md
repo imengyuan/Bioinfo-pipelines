@@ -170,9 +170,10 @@ nohup sh run_busco.sh #run for hours,here 5300/60=90min
 ## 表达定量Quantification
 
 方法 基于比对bowtie2 RSEM/eXpress,不基于Kallisto Salmon
-```
+```shell
 /Quantification
-run_quantification.sh
+#run_quantification.sh
+
 TRINITY_HOME=/home/genektv/miniconda2/opt/trinity-2.4.0
 transcripts=../Assembly/trinity_out_dir/Trinity.fasta
 samples_file=../Assembly/sample.txt
@@ -187,7 +188,8 @@ $TRINITY_HOME/util/align_and_estimate_abundance.pl \
     --thread_count 26 \
     --prep_reference \
     --trinity_mode
-
+#rsem每个样品生成一个文件夹。包含bowtie2.bam,bowtie2.bam.ok,RSEM.genes.results,RSEM.isoforms.results,RSEM.isoforms.results.ok,RSEM.stat
+#整合成矩阵文件
 ls */RSEM.genes.results >genes.quant_files.txt
 
 $TRINITY_HOME/util/abundance_estimates_to_matrix.pl \
@@ -196,8 +198,9 @@ $TRINITY_HOME/util/abundance_estimates_to_matrix.pl \
     --name_sample_by_basedir \
     --quant_files genes.quant_files.txt \
     --out_prefix genes
-
+#output:genes.counts.matrix,genes.guant_files.txt,gene.TPM.not_cross_nom etc
 samtools view .bam | less -S
+
 /Assembly_Stat #can wait
 vi Assembly_Stat.sh #improve a little
 TRINITY_HOME=/home/genektv/miniconda2/opt/trinity-2.4.0
@@ -278,6 +281,7 @@ nohup sh run_transdecoder.sh
 ```
 /step2_run_blast_hmmer
 vi run_blast_hmmer.sh
+
 transcripts=../../Assembly/trinity_out_dir/Trinity.fasta
 proteins=../step1_run_transdecoder/Trinity.fasta.transdecoder.pep
 uniprot_sprot_db=/home/genektv/database/Trinotate/uniprot_sprot.pep

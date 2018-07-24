@@ -1,0 +1,252 @@
+Testing models of evolution - Modeltest 3.7
+(c) Copyright, 1998-2005 David Posada  (dposada@uvigo.es)
+Facultad de Biologia, Universidad de Vigo,
+Campus Universitario, 36310 Vigo, Spain
+_______________________________________________________________
+Fri Jun 29 11:51:12 2018
+OS = Windows
+
+Input format: PAUP* scores file 
+
+
+Run settings:
+  Using the standard AIC (not the AICc)
+  Not using branch lengths as parameters
+  Including all models in model-averaging calculations
+
+
+
+---------------------------------------------------------------
+*                                                             *
+*         HIERARCHICAL LIKELIHOD RATIO TESTS (hLRTs)          *
+*                                                             *
+---------------------------------------------------------------
+
+Confidence level = 0.01
+
+ Equal base frequencies
+   Null model = JC       			  -lnL0 = 7832.1187
+   Alternative model = F81      	  -lnL1 = 7616.2588
+   2(lnL1-lnL0) =  431.7197		      df = 3 
+   P-value = <0.000001
+ Ti=Tv
+   Null model = F81      			  -lnL0 = 7616.2588
+   Alternative model = HKY      	  -lnL1 = 7278.3481
+   2(lnL1-lnL0) =  675.8213		      df = 1 
+   P-value = <0.000001
+ Equal Ti rates
+   Null model = HKY      			  -lnL0 = 7278.3481
+   Alternative model = TrN      	  -lnL1 = 7249.7358
+   2(lnL1-lnL0) =   57.2246		      df = 1 
+   P-value = <0.000001
+ Equal Tv rates
+   Null model = TrN      			  -lnL0 = 7249.7358
+   Alternative model = TIM      	  -lnL1 = 7245.8491
+   2(lnL1-lnL0) =    7.7734		      df = 1 
+   P-value =  0.005302
+ Only two Tv rates
+   Null model = TIM      			  -lnL0 = 7245.8491
+   Alternative model = GTR      	  -lnL1 = 7153.0698
+   2(lnL1-lnL0) =  185.5586		      df = 2 
+   P-value = <0.000001
+ Equal rates among sites
+   Null model = GTR      			  -lnL0 = 7153.0698
+   Alternative model = GTR+G    	  -lnL1 = 6581.7954
+   2(lnL1-lnL0) = 1142.5488		      df = 1 
+   Using mixed chi-square distribution
+   P-value = <0.000001
+ No Invariable sites
+   Null model = GTR+G    			  -lnL0 = 6581.7954
+   Alternative model = GTR+I+G  	  -lnL1 = 6560.4966
+   2(lnL1-lnL0) =   42.5977		      df = 1 
+   Using mixed chi-square distribution
+   P-value = <0.000001
+
+ Model selected: GTR+I+G
+  -lnL  =	6560.4966
+   K    =	10
+   Base frequencies: 
+     freqA = 	 0.2910
+     freqC = 	 0.3160
+     freqG = 	 0.1243
+     freqT = 	 0.2687
+   Substitution model: 
+     Rate matrix
+     R(a) [A-C] = 	11.0026
+     R(b) [A-G] = 	46.8874
+     R(c) [A-T] = 	16.0024
+     R(d) [C-G] = 	 2.8387
+     R(e) [C-T] = 	123.4623
+     R(f) [G-T] = 	 1.0000
+   Among-site rate variation
+     Proportion of invariable sites (I) = 	0.4988
+     Variable sites (G)
+      Gamma distribution shape parameter = 	1.3761
+
+
+--
+
+PAUP* Commands Block: If you want to implement the previous estimates as likelihod settings in PAUP*, attach the next block of commands after the data in your PAUP file:
+
+
+[!
+Likelihood settings from best-fit model (GTR+I+G) selected by hLRT in Modeltest 3.7 on Fri Jun 29 11:51:12 2018
+]
+
+BEGIN PAUP;
+Lset  Base=(0.2910 0.3160 0.1243)  Nst=6  Rmat=(11.0026 46.8874 16.0024 2.8387 123.4623)  Rates=gamma  Shape=1.3761  Pinvar=0.4988;
+END;
+
+--
+
+
+
+
+---------------------------------------------------------------
+*                                                             *
+*             AKAIKE INFORMATION CRITERION (AIC)              *
+*                                                             *
+---------------------------------------------------------------
+
+
+ Model selected: GTR+I+G
+  -lnL  =	6560.4966
+   K    =	10
+   AIC  =	13140.9932
+
+   Base frequencies: 
+     freqA = 	 0.2910
+     freqC = 	 0.3160
+     freqG = 	 0.1243
+     freqT = 	 0.2687
+   Substitution model: 
+     Rate matrix
+     R(a) [A-C] = 	11.0026
+     R(b) [A-G] = 	46.8874
+     R(c) [A-T] = 	16.0024
+     R(d) [C-G] = 	 2.8387
+     R(e) [C-T] = 	123.4623
+     R(f) [G-T] = 	 1.0000
+   Among-site rate variation
+     Proportion of invariable sites (I) = 	0.4988
+     Variable sites (G)
+      Gamma distribution shape parameter = 	1.3761
+
+
+--
+
+PAUP* Commands Block: If you want to implement the previous estimates as likelihod settings in PAUP*, attach the next block of commands after the data in your PAUP file:
+
+
+[!
+Likelihood settings from best-fit model (GTR+I+G) selected by AIC in Modeltest 3.7 on Fri Jun 29 11:51:12 2018
+]
+
+BEGIN PAUP;
+Lset  Base=(0.2910 0.3160 0.1243)  Nst=6  Rmat=(11.0026 46.8874 16.0024 2.8387 123.4623)  Rates=gamma  Shape=1.3761  Pinvar=0.4988;
+END;
+
+--
+
+
+ * MODEL SELECTION UNCERTAINTY : Akaike Weights
+
+Model             -lnL   K         AIC      delta     weight  cumWeight
+-----------------------------------------------------------------------
+GTR+I+G   	 6560.4966	10	13140.9932	   0.0000	  0.9999	 0.9999
+TVM+I+G   	 6570.9082	 9	13159.8164	  18.8232	8.18e-05	 1.0000
+TrN+I+G   	 6575.6323	 7	13165.2646	  24.2715	5.36e-06	 1.0000
+TIM+I+G   	 6574.8594	 8	13165.7188	  24.7256	4.27e-06	 1.0000
+HKY+I+G   	 6577.0942	 6	13166.1885	  25.1953	3.38e-06	 1.0000
+K81uf+I+G 	 6576.2388	 7	13166.4775	  25.4844	2.92e-06	 1.0000
+GTR+G     	 6581.7954	 9	13181.5908	  40.5977	1.53e-09	 1.0000
+TVM+G     	 6591.1387	 8	13198.2773	  57.2842	3.64e-13	 1.0000
+HKY+G     	 6597.8057	 5	13205.6113	  64.6182	9.30e-15	 1.0000
+K81uf+G   	 6597.2212	 6	13206.4424	  65.4492	6.14e-15	 1.0000
+TrN+G     	 6597.6519	 6	13207.3037	  66.3105	3.99e-15	 1.0000
+TIM+G     	 6597.0815	 7	13208.1631	  67.1699	2.60e-15	 1.0000
+GTR+I     	 6607.4961	 9	13232.9922	  91.9990	1.05e-20	 1.0000
+SYM+I+G   	 6610.7852	 7	13235.5703	  94.5771	2.90e-21	 1.0000
+TVM+I     	 6621.1294	 8	13258.2588	 117.2656	3.44e-26	 1.0000
+SYM+G     	 6630.2881	 6	13272.5762	 131.5830	2.67e-29	 1.0000
+TrN+I     	 6634.7314	 6	13281.4629	 140.4697	3.14e-31	 1.0000
+TIM+I     	 6634.3687	 7	13282.7373	 141.7441	1.66e-31	 1.0000
+HKY+I     	 6639.5854	 5	13289.1709	 148.1777	6.66e-33	 1.0000
+K81uf+I   	 6639.1431	 6	13290.2861	 149.2930	3.81e-33	 1.0000
+SYM+I     	 6654.2827	 6	13320.5654	 179.5723	1.01e-39	 1.0000
+TrNef+I+G 	 6707.8774	 4	13423.7549	 282.7617	0.00e+00	 1.0000
+TIMef+I+G 	 6707.4443	 5	13424.8887	 283.8955	0.00e+00	 1.0000
+TrNef+G   	 6729.2178	 3	13464.4355	 323.4424	0.00e+00	 1.0000
+TIMef+G   	 6728.9482	 4	13465.8965	 324.9033	0.00e+00	 1.0000
+TVMef+I+G 	 6728.2817	 6	13468.5635	 327.5703	0.00e+00	 1.0000
+TVMef+G   	 6733.5884	 5	13477.1768	 336.1836	0.00e+00	 1.0000
+TIMef+I   	 6754.4888	 4	13516.9775	 375.9844	0.00e+00	 1.0000
+TrNef+I   	 6755.9985	 3	13517.9971	 377.0039	0.00e+00	 1.0000
+TVMef+I   	 6784.7178	 5	13579.4355	 438.4424	0.00e+00	 1.0000
+K80+I+G   	 6823.5039	 3	13653.0078	 512.0146	0.00e+00	 1.0000
+K81+I+G   	 6822.8477	 4	13653.6953	 512.7021	0.00e+00	 1.0000
+K80+G     	 6833.0723	 2	13670.1445	 529.1514	0.00e+00	 1.0000
+K81+G     	 6832.3423	 3	13670.6846	 529.6914	0.00e+00	 1.0000
+K81+I     	 6874.0679	 3	13754.1357	 613.1426	0.00e+00	 1.0000
+K80+I     	 6875.5605	 2	13755.1211	 614.1279	0.00e+00	 1.0000
+F81+I+G   	 6984.5010	 5	13979.0020	 838.0088	0.00e+00	 1.0000
+F81+G     	 6990.6240	 4	13989.2480	 848.2549	0.00e+00	 1.0000
+F81+I     	 7038.8247	 4	14085.6494	 944.6562	0.00e+00	 1.0000
+GTR       	 7153.0698	 8	14322.1396	1181.1465	0.00e+00	 1.0000
+TVM       	 7184.6274	 7	14383.2549	1242.2617	0.00e+00	 1.0000
+SYM       	 7196.4639	 5	14402.9277	1261.9346	0.00e+00	 1.0000
+TIM       	 7245.8491	 6	14503.6982	1362.7051	0.00e+00	 1.0000
+TrN       	 7249.7358	 5	14509.4717	1368.4785	0.00e+00	 1.0000
+JC+I+G    	 7263.8188	 2	14531.6377	1390.6445	0.00e+00	 1.0000
+JC+G      	 7271.5425	 1	14545.0850	1404.0918	0.00e+00	 1.0000
+K81uf     	 7274.3926	 5	14558.7852	1417.7920	0.00e+00	 1.0000
+HKY       	 7278.3481	 4	14564.6963	1423.7031	0.00e+00	 1.0000
+JC+I      	 7289.1978	 1	14580.3955	1439.4023	0.00e+00	 1.0000
+TVMef     	 7322.9434	 4	14653.8867	1512.8936	0.00e+00	 1.0000
+TIMef     	 7326.0449	 3	14658.0898	1517.0967	0.00e+00	 1.0000
+TrNef     	 7328.3457	 2	14660.6914	1519.6982	0.00e+00	 1.0000
+K81       	 7455.1816	 2	14914.3633	1773.3701	0.00e+00	 1.0000
+K80       	 7457.4053	 1	14916.8105	1775.8174	0.00e+00	 1.0000
+F81       	 7616.2588	 3	15238.5176	2097.5244	0.00e+00	 1.0000
+JC        	 7832.1187	 0	15664.2373	2523.2441	0.00e+00	 1.0000
+-----------------------------------------------------------------------
+-lnL:		Negative log likelihod
+ K:			Number of estimated parameters
+ IC:		Information Criterion
+ delta:		Information difference
+ weight:	Information weight
+ cumWeight:	Cumulative information weight
+
+
+
+* MODEL AVERAGING AND PARAMETER IMPORTANCE (using Akaike Weights)
+  Including all 56 models
+
+                         Model-averaged
+Parameter   Importance        estimates
+---------------------------------------
+fA				1.0000		     0.2910
+fC				1.0000		     0.3160
+fG				1.0000		     0.1243
+fT				1.0000		     0.2687
+TiTv			0.0000		     5.4992
+rAC				1.0000		    11.0021
+rAG				0.9999		    46.8870
+rAT				1.0000		    16.0017
+rCG				1.0000		     2.8386
+rCT				0.9999		   123.4613
+pinv(I)			0.0000		     0.5430
+alpha(G)		0.0000		     0.2360
+pinv(IG)		1.0000		     0.4988
+alpha(IG)		1.0000		     1.3761
+---------------------------------------
+ Values have been rounded.
+ (I):		averaged using only +I models.
+ (G):		averaged using only +G models.
+ (IG):		averaged using only +I+G models.
+
+_________________________________________________________________
+Program is done.
+Time processing: 0 seconds
+If you need help type '-?' in the command line of the program.
+
