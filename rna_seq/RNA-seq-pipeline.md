@@ -383,7 +383,9 @@ $PtR --matrix $genes_TMM_EXPR_matrix --samples $samples_file --indiv_gene_cor TR
 #STEP BY STEP
 
 ```
-
+--heatmap
+data  transformation last3
+clustering method cluster none
 <br>
 
 ## 差异表达分析
@@ -472,3 +474,4 @@ perl ${TRINITY_HOME}/Analysis/DifferentialExpression/run_GOseq.pl \
 
 ggplot,excel show imgs
 ```
+
