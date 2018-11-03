@@ -1,4 +1,4 @@
-This papline is for align, includ:
+This pipline is for align, includ:
 
 ### realign.md  
 is the command line for align, rmdup, and realign  
@@ -8,7 +8,7 @@ can used for producing all align command line
 
 
 ### BamCount  
-contants two scripts which can generate the basic count of the bam file:  
+contains two scripts which can generate the basic count of the bam file:  
 ```
 DepthCoverage.pl …… for depth and coverage information  
   
