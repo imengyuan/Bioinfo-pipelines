@@ -1,6 +1,7 @@
 import os
 import re
 f = os.system("zcat scaffold37_cov106.vcf.gz >scaffold37_cov106.vcf")
+# calculate genotype frequencies based on vcf
 f2 = open("scaffold37_cov106.vcf")
 
 content = f2.readlines()
@@ -19,11 +20,11 @@ for line in content:
 		freq_list.append(2)
 		#calculate N_CHR
 		cnt = 0
-		for i in range(len(my_list)):
+		for i in range(len(my_list)): #./. is not counted
 			if re.match('0\/0',my_list[i]) or re.match('0\/1',my_list[i]) or re.match('1\/1',my_list[i]):
 				cnt += 1
 				
-		freq_list.append(cnt*2)
+		freq_list.append(cnt*2) # biallelic sites
 		#calculate {ALLELE:FREQ}
 		a = my_list[3]# ref
 		b = my_list[4]# alt
